@@ -1,0 +1,80 @@
+* {
+  outline: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* 전체를 감싸는 div */
+#body {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* 위치 정보 */
+#top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+#top #location {
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+#top #location i {
+  margin-right: 10px;
+}
+
+#top form {
+  align-self: center;
+}
+
+/* 날씨 정보 */
+#weatherInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+#weatherInfo #weatherIcon {
+  align-self: center;
+  margin: 20px 0;
+  width: 200px;
+  height: 200px;
+}
+
+#weatherInfo #weatherIcon img {
+  width: 200px;
+  height: 200px;
+}
+
+#weatherInfo #temp {
+  align-self: center;
+  display: flex;
+  margin: 30px 0;
+}
+
+#weatherInfo #temp h1 {
+  font-size: 100px;
+}
+
+#weatherInfo #temp i {
+  position: relative;
+  font-size: 50px;
+  top: 10px;
+  left: 20px;
+}
