@@ -2,6 +2,7 @@
   outline: 0;
   margin: 0;
   padding: 0;
+  cursor: default;
 }
 
 html {
@@ -12,47 +13,36 @@ html {
 body {
   width: 100%;
   height: 100%;
+  background-color: gray;
 }
 
 /* 전체를 감싸는 div */
 #body {
-  max-width: 1000px;
+  max-width: 700px;
   margin: auto;
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 /* 위치 정보 */
 #top {
+  padding: 2vh 1.5vw;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-}
-
-#top #location {
-  align-self: center;
-  display: flex;
-  align-items: center;
-}
-
-#top #location i {
-  margin-right: 10px;
-}
-
-#top form {
-  align-self: center;
+  /* flex 임시 */
 }
 
 /* 날씨 정보 */
 #weatherInfo {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-around;
   width: 100%;
 }
 
 #weatherInfo #weatherIcon {
-  align-self: center;
-  margin: 20px 0;
   width: 200px;
   height: 200px;
 }
@@ -65,7 +55,7 @@ body {
 #weatherInfo #temp {
   align-self: center;
   display: flex;
-  margin: 30px 0;
+  position: relative;
 }
 
 #weatherInfo #temp h1 {
@@ -73,8 +63,37 @@ body {
 }
 
 #weatherInfo #temp i {
-  position: relative;
-  font-size: 50px;
+  position: absolute;
+  font-size: 35px;
   top: 10px;
-  left: 20px;
+  right: -50px;
+}
+
+/* 옷 정보 */
+#clothes {
+  height: 50vh;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#clothes h1 {
+  font-size: 300px;
+}
+
+/* 온도정보 */
+#tempinfo {
+  width: 100%;
+}
+#tempinfo #timeTemp {
+  display: flex;
+  margin: 15px 50px;
+  justify-content: space-around;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 15px 0;
+}
+
+#tempinfo #timeTemp div {
+  text-align: center;
 }

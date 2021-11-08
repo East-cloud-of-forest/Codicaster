@@ -2,9 +2,11 @@ class App {
   constructor() {
     this.W = document.createElement('div')
     document.body.appendChild(this.W)
-    this.W.style.width = '500px'
+    this.W.style.width = '100%'
+    this.W.style.maxWidth = '1000px'
     this.W.style.height = '500px'
     this.W.style.background = 'pink'
+    this.W.style.margin = 'auto'
 
     this.weatherIcon = document.getElementById('weatherIcon')
     this.icon = new Image()
@@ -29,6 +31,7 @@ class App {
     if (this.city.value == 'select') {
       return
     } else {
+      // 현재 날씨
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${this.city.value}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
       )
@@ -37,9 +40,6 @@ class App {
           console.log(data)
 
           let today = new Date()
-          let bbb = 1636167600
-          let aaa = new Date(bbb)
-          console.log(aaa)
           let year = today.getFullYear()
           let month = today.getMonth()
           let date = today.getDate()
@@ -64,7 +64,7 @@ class App {
           this.icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
           this.weatherIcon.appendChild(this.icon)
 
-          this.temp.innerHTML = `${data.main.temp}`
+          this.temp.innerHTML = `${Math.round(data.main.temp)}`
           this.tempIcon.style.display = 'block'
 
           this.location.innerText = `${
@@ -83,14 +83,23 @@ class App {
           ${year}년 ${month + 1}월 ${date}일 ${day}
           ${time}시
           `
+
+          // 시간별 날씨
           fetch(
-            `https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lon}&exclude=current,minutely,hourly,alerts&appid=b905f0c03119f5162e6063c34f4e9e05`,
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lon}&units=metric&exclude=minutely,hourly,alerts&appid=b905f0c03119f5162e6063c34f4e9e05`,
           )
             .then((response) => response.json())
             .then((data) => {
               console.log(data)
-              console.log(this.lon)
-              console.log(this.lat)
+              this.morn = document.getElementsByClassName('morn')[0]
+              this.eve = document.getElementsByClassName('eve')[0]
+              this.day = document.getElementsByClassName('day')[0]
+              this.night = document.getElementsByClassName('night')[0]
+
+              this.morn.innerText = Math.round(data.daily[0].temp.morn)
+              this.eve.innerText = Math.round(data.daily[0].temp.eve)
+              this.day.innerText = Math.round(data.daily[0].temp.day)
+              this.night.innerText = Math.round(data.daily[0].temp.night)
             })
         })
         .catch((error) => console.log(('error', error)))
