@@ -24,6 +24,7 @@ body {
 
 /* 전체를 감싸는 div */
 #body {
+  width: 100%;
   max-width: 700px;
   margin: auto;
   background-color: white;
@@ -35,7 +36,7 @@ body {
 
 /* 위치 정보 */
 #top {
-  padding: 2vh 1.5vw;
+  padding: 0 1.5vw;
   display: flex;
   /* flex 임시 */
 }
@@ -102,4 +103,88 @@ body {
 
 #tempinfo #timeTemp div {
   text-align: center;
+}
+
+/* 서브페이지 */
+#subPage {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#subPage #test {
+  width: 100vw;
+  height: 100vh;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  position: relative;
+
+  background-color: white;
+
+  overflow: hidden;
+}
+
+#subPage #test #testX {
+  width: 100px;
+  height: 20px;
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#subPage #hourTemp {
+  display: flex;
+  margin-left: 20px;
+  width: 4800px;
+
+  position: relative;
+  right: 0px;
+
+  transition: 0.5s;
+}
+
+#subPage #hourTemp div {
+  width: 80px;
+  text-align: center;
+}
+
+#subPage #hourTemp div img {
+  width: 50px;
+}
+
+#subPage #hourTemp .box {
+  border: 1px solid black;
+  border-radius: 50px;
+  width: 50px;
+  margin: auto;
+}
+
+#subPage #hourTempNext {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 35px;
+  right: 0;
+}
+
+#subPage #weekTemp {
+  display: flex;
+  flex-direction: column;
+}
+
+#subPage #weekTemp article {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: 30px;
 }
