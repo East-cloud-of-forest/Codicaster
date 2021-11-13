@@ -35,9 +35,29 @@ class App {
     // 서브페이지내의 시간별 온도 버튼
     this.hourTempNext = document.getElementById('hourTempNext')
     this.hourTemp = document.getElementById('hourTemp')
+    this.hourTempPrev = document.getElementById('hourTempPrev')
+    this.hourTempPrev.style.display = 'none'
     let a = 0
     this.hourTempNext.addEventListener('click', () => {
-      a += 376.3
+      a += 80 * 7
+      if (a >= 3200) {
+        a = 3200
+        this.hourTempNext.style.display = 'none'
+      }
+      if (a > 0) {
+        this.hourTempPrev.style.display = 'block'
+      }
+      this.hourTemp.style.right = `${a}px`
+    })
+    this.hourTempPrev.addEventListener('click', () => {
+      a -= 80 * 7
+      if (a <= 0) {
+        a = 0
+        this.hourTempPrev.style.display = 'none'
+      }
+      if (a < 3200) {
+        this.hourTempNext.style.display = 'block'
+      }
       this.hourTemp.style.right = `${a}px`
     })
 
@@ -54,6 +74,7 @@ class App {
       this.test.style.display = 'none'
       a = 0
       this.hourTemp.style.right = `${a}px`
+      this.hourTempPrev.style.display = 'none'
     })
   }
 
@@ -228,10 +249,6 @@ class App {
 
     this.city.value = 'busan'
     this.nowWeather()
-
-    let aaa = document.createElement('p')
-    aaa.innerText = `lat = ${position.coords.latitude} , lon = ${position.coords.longitude}`
-    document.getElementById('location').appendChild(aaa)
   }
 
   showErrorMsg() {

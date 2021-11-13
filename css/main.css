@@ -128,8 +128,6 @@ body {
   position: relative;
 
   background-color: white;
-
-  overflow: hidden;
 }
 
 #subPage #test #testX {
@@ -141,9 +139,14 @@ body {
   right: 0;
 }
 
+#subPage #test .hidden {
+  overflow: hidden;
+  width: 640px;
+  margin: 0 auto;
+}
+
 #subPage #hourTemp {
   display: flex;
-  margin-left: 20px;
   width: 4800px;
 
   position: relative;
@@ -175,6 +178,15 @@ body {
   border-radius: 50%;
   top: 35px;
   right: 0;
+}
+
+#subPage #hourTempPrev {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 35px;
+  left: 0;
 }
 
 #subPage #weekTemp {
