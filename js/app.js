@@ -1,3 +1,5 @@
+import { SubPageTimeTemp } from './SubPageTimeTemp.js'
+
 class App {
   constructor() {
     this.W = document.createElement('div')
@@ -31,51 +33,7 @@ class App {
     this.location.addEventListener('click', this.gps.bind(this))
     this.gps()
 
-    // 서브페이지
-    // 서브페이지내의 시간별 온도 버튼
-    this.hourTempNext = document.getElementById('hourTempNext')
-    this.hourTemp = document.getElementById('hourTemp')
-    this.hourTempPrev = document.getElementById('hourTempPrev')
-    this.hourTempPrev.style.display = 'none'
-    let a = 0
-    this.hourTempNext.addEventListener('click', () => {
-      a += 80 * 7
-      if (a >= 3200) {
-        a = 3200
-        this.hourTempNext.style.display = 'none'
-      }
-      if (a > 0) {
-        this.hourTempPrev.style.display = 'block'
-      }
-      this.hourTemp.style.right = `${a}px`
-    })
-    this.hourTempPrev.addEventListener('click', () => {
-      a -= 80 * 7
-      if (a <= 0) {
-        a = 0
-        this.hourTempPrev.style.display = 'none'
-      }
-      if (a < 3200) {
-        this.hourTempNext.style.display = 'block'
-      }
-      this.hourTemp.style.right = `${a}px`
-    })
-
-    // 서브페이지 토글
-    this.test = document.getElementById('subPage')
-    this.testBtn = document
-      .getElementById('subPage')
-      .getElementsByTagName('button')[0]
-    this.btn = document.getElementById('timeTemp')
-    this.btn.addEventListener('click', () => {
-      this.test.style.display = 'flex'
-    })
-    this.testBtn.addEventListener('click', () => {
-      this.test.style.display = 'none'
-      a = 0
-      this.hourTemp.style.right = `${a}px`
-      this.hourTempPrev.style.display = 'none'
-    })
+    new SubPageTimeTemp()
   }
 
   clickCity() {
@@ -152,7 +110,6 @@ class App {
         // 시간별 온도 서브 페이지, 시간별 온도
         this.hourTemp = document.getElementById('hourTemp')
         this.hourTemp.innerHTML = ``
-
         for (let i = 0; i < data.hourly.length; ++i) {
           let dt = data.hourly[i].dt * 1000
           let time = new Date(dt)
@@ -180,7 +137,6 @@ class App {
 
         this.weekTemp = document.getElementById('weekTemp')
         this.weekTemp.innerHTML = ''
-
         for (let i = 0; i < data.daily.length; ++i) {
           let dt = data.daily[i].dt * 1000
           let today = new Date(dt)
@@ -195,12 +151,18 @@ class App {
 
           let maxtemp = Math.round(data.daily[i].temp.max)
           let mintemp = Math.round(data.daily[i].temp.min)
+          let pop = data.daily[i].pop * 100
 
           this.weekTemp.innerHTML += `
           <article>
             <div>
               <p>${day}</p>
               <p>${date}</p>
+            </div>
+            <img src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png" alt="icon ${i}">
+            <div>
+              <i class="fas fa-tint"></i>
+              <p>${pop} %</p>
             </div>
             <div>
               <p>${maxtemp}</p>
