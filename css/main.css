@@ -92,7 +92,8 @@ body {
 #tempinfo {
   width: 100%;
 }
-#tempinfo #timeTemp {
+
+#timeTemp {
   display: flex;
   margin: 15px 50px;
   justify-content: space-around;
@@ -101,12 +102,12 @@ body {
   padding: 15px 0;
 }
 
-#tempinfo #timeTemp div {
+#timeTemp div {
   text-align: center;
 }
 
 /* 서브페이지 */
-#subPage {
+#subPageTimeTemp, #subPageNowWeather {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -117,7 +118,7 @@ body {
   align-items: center;
 }
 
-#subPage #test {
+#subPageTimeTemp #test {
   width: 100vw;
   height: 100vh;
   max-width: 700px;
@@ -128,7 +129,7 @@ body {
   background-color: white;
 }
 
-#subPage #test #testX {
+#subPageTimeTemp #test #testX {
   width: 100px;
   height: 20px;
   margin: 10px;
@@ -137,7 +138,7 @@ body {
   right: 0;
 }
 
-#subPage #test .hourTemphidden {
+#subPageTimeTemp #test .hourTemphidden {
   overflow: hidden;
   width: calc((100% / 13) * 12);
   margin: 0 calc((100% / 13) / 2);
@@ -145,7 +146,7 @@ body {
 }
   
   /* 시간별 온도 */
-  #subPage #hourTemp {
+  #subPageTimeTemp #hourTemp {
     display: flex;
     height: 100%;
     width: calc(100% * 4);
@@ -154,24 +155,25 @@ body {
     transition: 0.5s;
   }
 
-  #subPage #hourTemp div {
+  #subPageTimeTemp #hourTemp div {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  #subPage #hourTemp div img {
+  #subPageTimeTemp #hourTemp div img {
     width: 100%;
   }
 
-  #subPage #hourTemp .box {
+  #subPageTimeTemp #hourTemp .box {
     border: 1px solid black;
     border-radius: 50px;
     width: 50px;
+    margin: 0 auto;
   }
 
-  #subPage #hourTempNext {
+  #subPageTimeTemp #hourTempNext {
     position: absolute;
     width: 50px;
     height: 50px;
@@ -180,7 +182,7 @@ body {
     right: 0;
   }
 
-  #subPage #hourTempPrev {
+  #subPageTimeTemp #hourTempPrev {
     position: absolute;
     width: 50px;
     height: 50px;
@@ -191,14 +193,14 @@ body {
   }
 
   /* 주간 온도 */
-  #subPage #weekTemp {
+  #subPageTimeTemp #weekTemp {
     display: flex;
     flex-direction: column;
     height: 65%;
     justify-content: space-around;
   }
 
-  #subPage #weekTemp article {
+  #subPageTimeTemp #weekTemp article {
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -206,20 +208,91 @@ body {
     height: 60px;
   }
 
-  #subPage #weekTemp article div:nth-child(1), #subPage #weekTemp article div:nth-child(4) {
+  #subPageTimeTemp #weekTemp article div:nth-child(1), #subPageTimeTemp #weekTemp article div:nth-child(4) {
     width: 10%;
   } 
 
-  #subPage #weekTemp article div:nth-child(3) {
+  #subPageTimeTemp #weekTemp article div:nth-child(3) {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 10%;
   }
 
-  #subPage #weekTemp article div:nth-child(3) i {
+  #subPageTimeTemp #weekTemp article div:nth-child(3) i {
     color: blue;
   }
 
-  #subPage #weekTemp article img {
+  #subPageTimeTemp #weekTemp article img {
     height: 100%;
+  }
+
+
+/* 현재 날씨 */
+#subPageNowWeather #nowWeather {
+  width: 100vw;
+  height: 100vh;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  background-color: white;
+}
+
+#subPageNowWeather #nowWeather .testX {
+  width: 100px;
+  height: 20px;
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#subPageNowWeather #nowWeather #maxminTemp {
+  display: flex;
+  justify-content: space-around;
+}
+
+  #subPageNowWeather #nowWeather #maxminTemp div {
+    display: flex;
+    position: relative;
+  }
+
+  #subPageNowWeather #nowWeather #maxminTemp h1 {
+    font-size: 100px;
+  }
+
+  #subPageNowWeather #nowWeather #maxminTemp i {
+    font-size: 35px;
+    position: absolute;
+    top: 10px;
+    right: -50px;
+  }
+
+    #subPageNowWeather #nowWeather #maxminTemp div:nth-child(1) h1{
+      color: red;
+    }
+    
+    #subPageNowWeather #nowWeather #maxminTemp div:nth-child(2) h1{
+      color: blue;
+    }
+
+  #subPageNowWeather #nowWeather #windHumidity {
+    display: flex;
+    justify-content: space-around;
+  }
+
+    #subPageNowWeather #nowWeather #windHumidity div {
+      display: flex;
+      text-align: center;
+      align-items: center;
+    }
+    #subPageNowWeather #nowWeather #windHumidity i {
+      margin-right: 5px;
+    }
+
+  #subPageNowWeather #nowWeather #sunTime {
+    display: flex;
+    justify-content: space-around;
   }

@@ -1,9 +1,9 @@
 export class SubPageTimeTemp {
   constructor() {
-    this.subPage = document.getElementById('subPage')
+    this.subPageTimeTemp = document.getElementById('subPageTimeTemp')
     this.timeTemp = document.getElementById('timeTemp')
     this.testBtn = document
-      .getElementById('subPage')
+      .getElementById('subPageTimeTemp')
       .getElementsByTagName('button')[0]
     this.hourTemp = document.getElementById('hourTemp')
     this.hourTempNext = document.getElementById('hourTempNext')
@@ -13,27 +13,23 @@ export class SubPageTimeTemp {
     this.clickHendler = this.clickPrevNext.bind(this)
 
     this.timeTemp.addEventListener('click', () => {
-      this.subPage.style.display = 'flex'
-      this.hourTempDivWidth = document
-        .getElementById('hourTemp')
-        .getElementsByTagName('div')[0].offsetWidth
+      this.subPageTimeTemp.style.display = 'flex'
+      this.hourTempDivWidth = document.getElementById('hourTemp').getElementsByTagName('div')[0].getBoundingClientRect().width
       this.oneMove = this.hourTempDivWidth * 12
       this.maxMove = this.hourTempDivWidth * 36
 
-      this.hourTempNext.addEventListener('click', this.clickHendler)
-      this.hourTempPrev.addEventListener('click', this.clickHendler)
+      document.addEventListener('click', this.clickHendler)
     })
 
     this.testBtn.addEventListener('click', () => {
-      this.subPage.style.display = 'none'
+      this.subPageTimeTemp.style.display = 'none'
 
       this.move = 0
       this.hourTemp.style.right = `${this.move}px`
       this.hourTempPrev.style.display = 'none'
       this.hourTempNext.style.display = 'block'
 
-      this.hourTempNext.removeEventListener('click', this.clickHendler)
-      this.hourTempPrev.removeEventListener('click', this.clickHendler)
+      document.removeEventListener('click', this.clickHendler)
     })
   }
 
