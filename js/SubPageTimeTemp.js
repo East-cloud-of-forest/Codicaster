@@ -68,9 +68,8 @@ export class SubPageTimeTemp {
   htmlInAPI(data) {
     this.hourTemp.innerHTML = ``
     for (let i = 0; i < data.hourly.length; ++i) {
-      let dt = data.hourly[i].dt * 1000
-      let time = new Date(dt)
-      let hour = `<p>${time.getHours()}</p>`
+      let time = new Date(data.hourly[i].dt * 1000)
+      let hour = `<p>${(`00` + time.getHours()).slice(-2)} 시</p>`
       let temp = Math.round(data.hourly[i].temp)
       if (time.getHours() == 0) {
         if (time.getDate() == new Date().getDate()) {
@@ -96,8 +95,7 @@ export class SubPageTimeTemp {
     
     this.weekTemp.innerHTML = ''
     for (let i = 0; i < data.daily.length; ++i) {
-      let dt = data.daily[i].dt * 1000
-      let today = new Date(dt)
+      let today = new Date(data.daily[i].dt * 1000)
       let date = `${today.getMonth() + 1}.${today.getDate()}`
       let day = this.getDay(today.getDay())
       if (today.getDate() == new Date().getDate()) {

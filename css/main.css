@@ -296,3 +296,14 @@ body {
     display: flex;
     justify-content: space-around;
   }
+
+  #subPageNowWeather #nowWeather #optionInfo > div {
+    text-align: center;
+  }
+
+  #subPageNowWeather #nowWeather #optionInfo .hourDrop {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+  }
