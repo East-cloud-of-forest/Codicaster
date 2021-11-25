@@ -12,30 +12,20 @@ export class SubPageTimeTemp {
     this.hourTemp = document.getElementById('hourTemp')
     this.weekTemp = document.getElementById('weekTemp')
 
-    this.clickHendler = this.clickPrevNext.bind(this)
-
     this.timeTemp.addEventListener('click', () => {
-      this.subPageTimeTemp.style.display = 'flex'
-      this.hourTempDivWidth = document
-        .getElementById('hourTemp')
-        .getElementsByTagName('div')[0]
-        .getBoundingClientRect().width
-      this.oneMove = this.hourTempDivWidth * 12
-      this.maxMove = this.hourTempDivWidth * 36
-
-      document.addEventListener('click', this.clickHendler)
+      this.subPageTimeTemp.style.top = '0'
     })
 
     this.testBtn.addEventListener('click', () => {
-      this.subPageTimeTemp.style.display = 'none'
+      this.subPageTimeTemp.style.top = '100vw'
 
       this.move = 0
       this.hourTemp.style.right = `${this.move}px`
       this.hourTempPrev.style.display = 'none'
       this.hourTempNext.style.display = 'block'
-
-      document.removeEventListener('click', this.clickHendler)
     })
+
+    document.addEventListener('click', this.clickPrevNext.bind(this))
   }
 
   clickPrevNext(event) {
@@ -66,11 +56,13 @@ export class SubPageTimeTemp {
   }
 
   htmlInAPI(data) {
-    this.hourTemp.innerHTML = ``
+    this.hourTemp.innerHTML = `<canvas id="hourTempChart"></canvas>`
+    let tempArray = []
     for (let i = 0; i < data.hourly.length; ++i) {
       let time = new Date(data.hourly[i].dt * 1000)
       let hour = `<p>${(`00` + time.getHours()).slice(-2)} 시</p>`
       let temp = Math.round(data.hourly[i].temp)
+      tempArray.push(temp)
       if (time.getHours() == 0) {
         if (time.getDate() == new Date().getDate()) {
           hour = `<p class="box">오늘</P>`
@@ -85,14 +77,15 @@ export class SubPageTimeTemp {
 
       this.hourTemp.innerHTML += `
         <div>
-          <p>${temp}˚</p>
+          <article>
+            <div class="point"><p>${temp}˚</p></div>
+          </article>
           <img src="http://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png" alt="icon ${i}">
           ${hour}
         </div>
       `
     }
 
-    
     this.weekTemp.innerHTML = ''
     for (let i = 0; i < data.daily.length; ++i) {
       let today = new Date(data.daily[i].dt * 1000)
@@ -126,6 +119,8 @@ export class SubPageTimeTemp {
         </article>
       `
     }
+
+    this.drawHourTemp(data, tempArray)
   }
 
   getDay(a) {
@@ -145,5 +140,46 @@ export class SubPageTimeTemp {
       a = '토요일'
     }
     return a
+  }
+
+  drawHourTemp(data, tempArray) {
+    this.hourTempDivWidth = document.getElementById('hourTemp').getElementsByTagName('div')[0].getBoundingClientRect().width
+    this.oneMove = this.hourTempDivWidth * 12
+    this.maxMove = this.hourTempDivWidth * 36
+    this.chartPoint = document.getElementById('hourTemp').getElementsByClassName('point')
+    let max = Math.max.apply(null, tempArray)
+    let min = Math.min.apply(null, tempArray)
+    let range = max - min
+    this.canvas = document.getElementById('hourTempChart')
+    this.ctx = this.canvas.getContext('2d')
+    this.stageWidth = document.getElementById('hourTemp').getBoundingClientRect().width
+    this.stageHeight = document.getElementById('hourTemp').getElementsByTagName('article')[0].getBoundingClientRect().height
+    this.canvas.width = this.stageWidth
+    this.canvas.height = this.stageHeight
+
+    for(let i = 0; i < data.hourly.length; ++i) {
+      this.tempPersent = 10 + (Math.round(data.hourly[i].temp) - min) / range * 70
+      this.chartPoint[i].style.bottom = `${this.tempPersent}%`
+
+      let pointX = (this.hourTempDivWidth * (i + 1) - this.hourTempDivWidth / 2) + 1
+      let pointY = 38 - (40 * (this.tempPersent / 100))
+      let presentX = pointX
+      let presentY = pointY
+
+      if (i - 1 >= 0) {
+        let tP = 10 + (Math.round(data.hourly[i - 1].temp) - min) / range * 70
+        presentY = 38 - (40 * (tP / 100))
+        presentX = (this.hourTempDivWidth * i - this.hourTempDivWidth / 2) + 1
+      }
+
+      this.ctx.beginPath();
+      this.ctx.arc(pointX, pointY, 3, 0, Math.PI*2, false)
+      this.ctx.moveTo(presentX, presentY)
+      this.ctx.lineTo(pointX, pointY)
+      this.ctx.stroke()
+      this.ctx.fillstyle = "green"
+      this.ctx.fill()
+      this.ctx.closePath()
+    }
   }
 }

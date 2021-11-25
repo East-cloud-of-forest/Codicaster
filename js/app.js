@@ -6,8 +6,8 @@ class App {
     // 임시
     this.W = document.createElement('div')
     document.body.appendChild(this.W)
-    this.W.style.width = '300px'
-    this.W.style.height = '300px'
+    this.W.style.width = '200px'
+    this.W.style.height = '200px'
     this.W.style.background = 'pink'
     this.W.style.margin = 'auto'
     this.W.style.position = 'absolute'

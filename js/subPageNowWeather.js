@@ -10,14 +10,12 @@ export class SubPageNowWeather {
     this.sunTime = document.getElementById('sunTime')
 
     this.weatherInfo.addEventListener('click', () => {
-      this.subPageNowWeather.style.display = 'flex'
-
+      this.subPageNowWeather.style.top = '0'
       let timeTemp = document.getElementById('timeTemp').cloneNode(true)
       this.nowTimeTemp.appendChild(timeTemp)
     })
     this.close.addEventListener('click', () => {
-      this.subPageNowWeather.style.display = 'none'
-
+      this.subPageNowWeather.style.top = '100vh'
       this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
     })
   }

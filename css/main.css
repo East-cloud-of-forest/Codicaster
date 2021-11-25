@@ -20,6 +20,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: gray;
+  overflow: hidden;
 }
 
 /* 전체를 감싸는 div */
@@ -32,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow: hidden;
 }
 
 /* 위치 정보 */
@@ -109,11 +111,13 @@ body {
 /* 서브페이지 */
 #subPageTimeTemp, #subPageNowWeather {
   position: absolute;
-  top: 0;
+  height: 100%;
+  width: 100%;
+  top: 100vh;
   bottom: 0;
   left: 0;
   right: 0;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -160,6 +164,32 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  
+  #subPageTimeTemp #hourTempChart {
+    position: absolute;
+    top: 20px;
+  }
+
+  #subPageTimeTemp #hourTemp div article {
+    height: 40px;
+    margin-top: 20px;
+    position: relative;
+  }
+
+  #subPageTimeTemp #hourTemp div article .point {
+    width:2px;
+    height:2px;
+    position: absolute;
+    left: calc(50% - 1px)
+  }
+
+  #subPageTimeTemp #hourTemp div article .point p {
+    position: absolute;
+    top: -22px;
+    transform: translate(-50%);
+    font-size: 14px;
   }
 
   #subPageTimeTemp #hourTemp div img {
