@@ -199,7 +199,7 @@ body {
   #subPageTimeTemp #hourTemp .box {
     border: 1px solid black;
     border-radius: 50px;
-    width: 50px;
+    width: 100%;
     margin: 0 auto;
   }
 

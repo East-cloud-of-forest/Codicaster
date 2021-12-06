@@ -52,29 +52,20 @@ export class SubPageNowWeather {
     let sunrise = data.daily[0].sunrise * 1000
     let sunset = data.daily[0].sunset * 1000
     let sunriseTo = data.daily[1].sunrise * 1000
-    let rt = new Date().getTime()
-    if (rt < sunrise) {
-      let sunrise = new Date(data.daily[0].sunset * 1000)
-      this.sunTime.innerHTML = `
-      <div>
-        <p>${('00' + sunrise.getHours()).slice(-2)} : ${('00' + sunrise.getMinutes()).slice(-2)}</P>
-      </div>
-      `
-    } else if (rt < sunset) {
-      let sunset = new Date(data.daily[0].sunset * 1000)
-      this.sunTime.innerHTML = `
-      <div>
-        <p>${('00' + sunset.getHours()).slice(-2)} : ${('00' + sunset.getMinutes()).slice(-2)}</P>
-      </div>
-      `
-    } else if (rt < sunriseTo) {
-      let sunriseTo = new Date(data.daily[0].sunriseTo * 1000)
-      this.sunTime.innerHTML = `
-      <div>
-        <p>${('00' + sunriseTo.getHours()).slice(-2)} : ${('00' + sunriseTo.getMinutes()).slice(-2)}</P>
-      </div>
-      `
+    let now = new Date().getTime()
+    let suntime = 0
+    if (now < sunrise) {
+      suntime = new Date(sunrise)
+    } else if (now > sunset) {
+      suntime = new Date(sunriseTo)
+    } else if (now > sunrise) {
+      suntime = new Date(sunset)
     }
+    this.sunTime.innerHTML = `
+      <div>
+        <p>${('00' + suntime.getHours()).slice(-2)} : ${('00' + suntime.getMinutes()).slice(-2)}</P>
+      </div>
+      `
   }
 
   currentWeather(data) {

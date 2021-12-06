@@ -17,7 +17,7 @@ export class SubPageTimeTemp {
     })
 
     this.testBtn.addEventListener('click', () => {
-      this.subPageTimeTemp.style.top = '100vw'
+      this.subPageTimeTemp.style.top = '100vh'
 
       this.move = 0
       this.hourTemp.style.right = `${this.move}px`
