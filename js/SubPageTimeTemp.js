@@ -8,14 +8,17 @@ export class SubPageTimeTemp {
     this.hourTemp = document.getElementById('hourTemp')
     this.hourTempNext = document.getElementById('hourTempNext')
     this.hourTempPrev = document.getElementById('hourTempPrev')
+    this.hourTempDivWidth = this.hourTemp.getBoundingClientRect().width / 48
+    this.oneMove = this.hourTempDivWidth * 12
+    this.maxMove = this.hourTempDivWidth * 36
     this.move = 0
-    this.hourTemp = document.getElementById('hourTemp')
+    this.stageWidth = this.hourTempDivWidth * 48
+    this.stageHeight = 40
     this.weekTemp = document.getElementById('weekTemp')
 
     this.timeTemp.addEventListener('click', () => {
       this.subPageTimeTemp.style.top = '0'
     })
-
     this.testBtn.addEventListener('click', () => {
       this.subPageTimeTemp.style.top = '100vh'
 
@@ -56,13 +59,22 @@ export class SubPageTimeTemp {
   }
 
   htmlInAPI(data) {
+    this.resetChart()
     this.hourTemp.innerHTML = `<canvas id="hourTempChart"></canvas>`
-    let tempArray = []
+    this.chartPoint = this.hourTemp.getElementsByClassName('point')
+    this.canvas = document.getElementById('hourTempChart')
+    this.ctx = this.canvas.getContext('2d')
+    this.canvas.width = this.stageWidth
+    this.canvas.height = this.stageHeight
+
+    let max = Math.round(Math.max.apply(Math, data.hourly.map((o) => {return o.temp})))
+    let min = Math.round(Math.min.apply(Math, data.hourly.map((o) => {return o.temp})))
+    let range = max - min
+
     for (let i = 0; i < data.hourly.length; ++i) {
       let time = new Date(data.hourly[i].dt * 1000)
       let hour = `<p>${(`00` + time.getHours()).slice(-2)} 시</p>`
       let temp = Math.round(data.hourly[i].temp)
-      tempArray.push(temp)
       if (time.getHours() == 0) {
         if (time.getDate() == new Date().getDate()) {
           hour = `<p class="box">오늘</P>`
@@ -74,16 +86,38 @@ export class SubPageTimeTemp {
           hour = `<p class="box">모레</P>`
         }
       }
-
-      this.hourTemp.innerHTML += `
-        <div>
-          <article>
-            <div class="point"><p>${temp}˚</p></div>
-          </article>
-          <img src="http://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png" alt="icon ${i}">
-          ${hour}
-        </div>
+      let div = document.createElement('div')
+      div.innerHTML = `
+        <article>
+          <div class="point"><p>${temp}˚</p></div>
+        </article>
+        <img src="http://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png" alt="icon ${i}">
+        ${hour}
       `
+      this.hourTemp.appendChild(div)
+
+      this.tempPersent = 10 + (Math.round(data.hourly[i].temp) - min) / range * 70
+      this.chartPoint[i].style.bottom = `${this.tempPersent}%`
+
+      let pointX = (this.hourTempDivWidth * (i + 1) - this.hourTempDivWidth / 2) + 1
+      let pointY = 38 - (40 * (this.tempPersent / 100))
+      let presentX = pointX
+      let presentY = pointY
+
+      if (i - 1 >= 0) {
+        let tP = 10 + (Math.round(data.hourly[i - 1].temp) - min) / range * 70
+        presentY = 38 - (40 * (tP / 100))
+        presentX = (this.hourTempDivWidth * i - this.hourTempDivWidth / 2) + 1
+      }
+
+      this.ctx.beginPath()
+      this.ctx.arc(pointX, pointY, 3, 0, Math.PI*2, false)
+      this.ctx.moveTo(presentX, presentY)
+      this.ctx.lineTo(pointX, pointY)
+      this.ctx.stroke()
+      this.ctx.fillstyle = "green"
+      this.ctx.fill()
+      this.ctx.closePath()
     }
 
     this.weekTemp.innerHTML = ''
@@ -119,8 +153,6 @@ export class SubPageTimeTemp {
         </article>
       `
     }
-
-    this.drawHourTemp(data, tempArray)
   }
 
   getDay(a) {
@@ -142,44 +174,9 @@ export class SubPageTimeTemp {
     return a
   }
 
-  drawHourTemp(data, tempArray) {
-    this.hourTempDivWidth = document.getElementById('hourTemp').getElementsByTagName('div')[0].getBoundingClientRect().width
-    this.oneMove = this.hourTempDivWidth * 12
-    this.maxMove = this.hourTempDivWidth * 36
-    this.chartPoint = document.getElementById('hourTemp').getElementsByClassName('point')
-    let max = Math.max.apply(null, tempArray)
-    let min = Math.min.apply(null, tempArray)
-    let range = max - min
-    this.canvas = document.getElementById('hourTempChart')
-    this.ctx = this.canvas.getContext('2d')
-    this.stageWidth = document.getElementById('hourTemp').getBoundingClientRect().width
-    this.stageHeight = document.getElementById('hourTemp').getElementsByTagName('article')[0].getBoundingClientRect().height
-    this.canvas.width = this.stageWidth
-    this.canvas.height = this.stageHeight
-
-    for(let i = 0; i < data.hourly.length; ++i) {
-      this.tempPersent = 10 + (Math.round(data.hourly[i].temp) - min) / range * 70
-      this.chartPoint[i].style.bottom = `${this.tempPersent}%`
-
-      let pointX = (this.hourTempDivWidth * (i + 1) - this.hourTempDivWidth / 2) + 1
-      let pointY = 38 - (40 * (this.tempPersent / 100))
-      let presentX = pointX
-      let presentY = pointY
-
-      if (i - 1 >= 0) {
-        let tP = 10 + (Math.round(data.hourly[i - 1].temp) - min) / range * 70
-        presentY = 38 - (40 * (tP / 100))
-        presentX = (this.hourTempDivWidth * i - this.hourTempDivWidth / 2) + 1
-      }
-
-      this.ctx.beginPath();
-      this.ctx.arc(pointX, pointY, 3, 0, Math.PI*2, false)
-      this.ctx.moveTo(presentX, presentY)
-      this.ctx.lineTo(pointX, pointY)
-      this.ctx.stroke()
-      this.ctx.fillstyle = "green"
-      this.ctx.fill()
-      this.ctx.closePath()
+  resetChart() {
+    while ( this.hourTemp.hasChildNodes() ) {
+      this.hourTemp.removeChild( this.hourTemp.firstChild );
     }
   }
 }
