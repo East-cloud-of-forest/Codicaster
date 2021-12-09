@@ -175,8 +175,8 @@ export class SubPageTimeTemp {
   }
 
   resetChart() {
-    while ( this.hourTemp.hasChildNodes() ) {
-      this.hourTemp.removeChild( this.hourTemp.firstChild );
+    while (this.hourTemp.hasChildNodes()) {
+      this.hourTemp.removeChild(this.hourTemp.firstChild)
     }
   }
 }

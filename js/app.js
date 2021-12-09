@@ -3,18 +3,6 @@ import { SubPageNowWeather } from './subPageNowWeather.js'
 
 class App {
   constructor() {
-    // 임시
-    this.W = document.createElement('div')
-    document.body.appendChild(this.W)
-    this.W.style.width = '200px'
-    this.W.style.height = '200px'
-    this.W.style.background = 'pink'
-    this.W.style.margin = 'auto'
-    this.W.style.position = 'absolute'
-    this.W.style.top = '50px'
-    this.W.style.left = '50px'
-    //
-
     this.weatherIcon = document.getElementById('weatherIcon')
     this.icon = new Image()
 
@@ -29,8 +17,8 @@ class App {
       .getElementById('location')
       .getElementsByTagName('p')[0]
 
-    this.city = document.getElementById('city')
-    this.city.addEventListener('change', this.clickCity.bind(this))
+    this.city = ''
+    this.testclick()
 
     this.loaction = document.getElementsByTagName('location')
     this.location.addEventListener('click', this.gps.bind(this))
@@ -40,11 +28,31 @@ class App {
     this.SubPageNowWeather = new SubPageNowWeather()
   }
 
-  clickCity() {
-    if (this.city.value == 'select') {
+  testclick() {
+    let ltest = document.getElementById('Ltest').querySelectorAll('button')
+    let asdd = this.clickCity.bind(this)
+    function btn(i) {
+        ltest[i].onclick = function(){
+          let city = this
+          asdd(city)
+      }
+    }
+    for(let i = 0; i < ltest.length; i++) {
+      btn(i)
+    }
+  }
+
+  clickCity(city) {
+    this.city = city.value
+    this.cityname = city.innerText
+    this.location.innerText = `${
+      this.cityname
+    }`
+    if (this.city == 'select') {
       return
     } else {
       // 현재 날씨
+      console.log(this.city)
       this.nowWeather()
     }
   }
@@ -52,28 +60,11 @@ class App {
   // Weather API
   nowWeather() {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${this.city.value}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
+      `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-        // 임시
-        let today = new Date()
-        let year = today.getFullYear()
-        let month = today.getMonth()
-        let date = today.getDate()
-        let day = this.SubPageTimeTemp.getDay(today.getDay())
-        let time = today.getHours()
-
-        this.W.innerText = ''
-        this.W.innerText += `${data.name}
-        온도 : ${data.main.temp}
-        최고온도 : ${data.main.temp_max}
-        최저온도 : ${data.main.temp_min}
-
-        ${year}년 ${month + 1}월 ${date}일 ${day}
-        ${time}시
-        `
 
         // 메인페이지
         this.icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
@@ -81,10 +72,6 @@ class App {
 
         this.temp.innerHTML = `${Math.round(data.main.temp)}`
         this.tempIcon.style.display = 'block'
-
-        this.location.innerText = `${
-          this.city.options[this.city.options.selectedIndex].text
-        }`
 
         // 시간별 날씨
         this.maxtemp = data.main.temp_max
@@ -134,8 +121,9 @@ class App {
 
   showLocation(position) {
     console.log(position)
-
-    this.city.value = 'busan'
+    // 임시
+    this.city = 'busan'
+    this.location.innerText = `부산광역시`
     this.nowWeather()
   }
 
