@@ -34,13 +34,51 @@ body {
   flex-direction: column;
   justify-content: space-around;
   overflow: hidden;
+  position: relative;
 }
 
 /* 위치 정보 */
 #top {
   padding: 0 1.5vw;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   /* flex 임시 */
+}
+
+#top i {
+  font-size: 30px;
+}
+
+#cityChoiceHidden{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background-color: white;
+  overflow: auto;
+  display: none;
+}
+
+#cityChoice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 180%;
+}
+
+#cityChoice button {
+  width: 90%;
+  border: none;
+  height: 5%;
+  font-size: 18px;
+  background-color: blue;
+  border-radius: 10px;
+  color: white;
 }
 
 /* 날씨 정보 */

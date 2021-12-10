@@ -13,10 +13,14 @@ class App {
     this.lon = ''
     this.lat = ''
 
-    this.location = document
-      .getElementById('location')
-      .getElementsByTagName('p')[0]
+    this.locationIcon = document.getElementById('top').getElementsByTagName('i')[0]
+    this.cityChoice = document.getElementById('cityChoiceHidden')
+    this.locationIcon.addEventListener('click', () => {
+      this.cityChoice.style.display = 'block'
+      this.cityChoice.scrollTop = 0
+    })
 
+    this.location = document.getElementById('location').getElementsByTagName('p')[0]
     this.city = ''
     this.testclick()
 
@@ -29,30 +33,31 @@ class App {
   }
 
   testclick() {
-    let ltest = document.getElementById('Ltest').querySelectorAll('button')
-    let asdd = this.clickCity.bind(this)
+    let cityChoice = document.getElementById('cityChoice').querySelectorAll('button')
+    let clickCity = this.clickCity.bind(this)
     function btn(i) {
-        ltest[i].onclick = function(){
-          let city = this
-          asdd(city)
+      cityChoice[i].onclick = function(){
+        let city = this
+        clickCity(city)
       }
     }
-    for(let i = 0; i < ltest.length; i++) {
+    for(let i = 0; i < cityChoice.length; i++) {
       btn(i)
     }
   }
 
   clickCity(city) {
+    this.cityChoice.style.display = 'none'
     this.city = city.value
-    this.cityname = city.innerText
-    this.location.innerText = `${
-      this.cityname
-    }`
     if (this.city == 'select') {
       return
     } else {
       // 현재 날씨
       console.log(this.city)
+      this.cityname = city.innerText
+      this.location.innerText = `${
+        this.cityname
+      }`
       this.nowWeather()
     }
   }
