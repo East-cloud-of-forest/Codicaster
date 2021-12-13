@@ -274,7 +274,7 @@ body {
     justify-content: space-around;
     text-align: center;
     align-items: center;
-    height: 60px;
+    height: calc(100% / 8);
   }
 
   #subPageTimeTemp #weekTemp article div:nth-child(1), #subPageTimeTemp #weekTemp article div:nth-child(4) {
