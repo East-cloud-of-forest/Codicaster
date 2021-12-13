@@ -22,6 +22,7 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   background-color: gray;
   overflow: hidden;
+  touch-action: none;
 }
 
 /* 전체를 감싸는 div */
@@ -152,10 +153,10 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  top: calc(var(--vh, 1vh) * 100);
   bottom: 0;
   left: 0;
   right: 0;
+  top: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -298,8 +299,8 @@ body {
 
 /* 현재 날씨 */
 #subPageNowWeather #nowWeather {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   max-width: 700px;
   display: flex;
   flex-direction: column;

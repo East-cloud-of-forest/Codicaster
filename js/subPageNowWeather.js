@@ -15,7 +15,7 @@ export class SubPageNowWeather {
       this.nowTimeTemp.appendChild(timeTemp)
     })
     this.close.addEventListener('click', () => {
-      this.subPageNowWeather.style.top = '100vh'
+      this.subPageNowWeather.style = ''
       this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
     })
   }
