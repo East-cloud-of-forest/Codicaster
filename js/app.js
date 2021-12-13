@@ -1,7 +1,7 @@
 import { SubPageTimeTemp } from './subPageTimeTemp.js'
 import { SubPageNowWeather } from './subPageNowWeather.js'
 
-// 도시 이름 변환 데이터
+// 도시 이름 데이터
 import CityInfo from './cityInfo.js'
 
 class App {
@@ -33,6 +33,16 @@ class App {
 
     this.SubPageTimeTemp = new SubPageTimeTemp()
     this.SubPageNowWeather = new SubPageNowWeather()
+
+    window.addEventListener('resize', this.resize.bind(this))
+    this.resize()
+  }
+
+  resize() {
+    let vh = window.innerHeight * 0.01
+    console.log(vh)
+
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
   }
 
   // Weather API
