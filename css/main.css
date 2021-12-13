@@ -22,7 +22,6 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   background-color: gray;
   overflow: hidden;
-  touch-action: none;
 }
 
 /* 전체를 감싸는 div */
