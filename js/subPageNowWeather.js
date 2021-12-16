@@ -8,16 +8,23 @@ export class SubPageNowWeather {
     this.windHumidity = document.getElementById('windHumidity')
     this.optionInfo = document.getElementById('optionInfo')
     this.sunTime = document.getElementById('sunTime')
+    this.mainPage = document.getElementById('mainPage')
 
     this.weatherInfo.addEventListener('click', () => {
       this.subPageNowWeather.style.top = '0'
       let timeTemp = document.getElementById('timeTemp').cloneNode(true)
       this.nowTimeTemp.appendChild(timeTemp)
+      this.mainPage.style.display = 'none'
     })
     this.close.addEventListener('click', () => {
       this.subPageNowWeather.style = ''
+      this.mainPage.style.display = 'block'
       this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
     })
+  }
+
+  padeIn() {
+    
   }
 
   htmlInAPI(data, curMintemp, curMaxtemp) {

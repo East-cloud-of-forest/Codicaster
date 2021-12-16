@@ -13,6 +13,8 @@ class App {
     this.tempIcon = document.getElementById('temp').getElementsByTagName('i')[0]
     this.tempIcon.style.display = 'none'
 
+    this.mainPage = document.getElementById('mainPage')
+
     this.lon = ''
     this.lat = ''
 
@@ -36,6 +38,14 @@ class App {
 
     window.addEventListener('resize', this.resize.bind(this))
     this.resize()
+  }
+
+  padeIn() {
+    this.mainPage.className = ''
+  }
+
+  padeOut() {
+    this.mainPage.className = 'padeOut'
   }
 
   resize() {
@@ -84,7 +94,8 @@ class App {
       this.SubPageTimeTemp.htmlInAPI(data)
       this.SubPageNowWeather.htmlInAPI(data, curMintemp, curMaxtemp)
       })
-      .catch((error) => console.log(('error', error)))
+    .then(this.padeIn())
+    .catch((error) => console.log(('error', error)))
   }
 
   // 지역 선택을 이용한 API 호출
@@ -104,22 +115,28 @@ class App {
 
   clickCity(city) {
     this.cityChoice.style.display = 'none'
+    this.padeOut()
     this.city = city.value
     if (this.city == 'select') {
       return
     } else {
-      this.location.innerText = `${city.innerText}`
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
       )
       .then((response) => response.json())
-      .then((data) => {this.nowWeather(data)})
+      .then((data) => {
+        setTimeout(() => {
+          this.location.innerText = `${city.innerText}`
+          this.nowWeather(data)
+        },400)
+      })
       .catch((error) => console.log(('error', error)))
     }
   }
 
   // GPS를 이용한 API 호출
   gps() {
+    this.padeOut()
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         this.showLocation.bind(this),
@@ -127,6 +144,7 @@ class App {
       )
     } else {
       this.location.innerText = '위치 정보를 지원하지 않는 브라우저 입니다.'
+      this.padeIn()
     }
   }
 
@@ -146,8 +164,10 @@ class App {
           cityName = `${CityInfo[data.id][1]} ${CityInfo[data.id][2]}`
         }
       }
-      this.location.innerText = `${cityName}`
-      this.nowWeather(data)
+      setTimeout(() => {
+        this.location.innerText = `${cityName}`
+        this.nowWeather(data)
+      },400)
     })
     .catch((error) => console.log(('error', error)))
   }
@@ -155,6 +175,7 @@ class App {
   showErrorMsg() {
     this.location.innerText =
       '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
+    this.padeIn()
   }
 }
 

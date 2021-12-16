@@ -15,12 +15,15 @@ export class SubPageTimeTemp {
     this.stageWidth = this.hourTempDivWidth * 48
     this.stageHeight = 40
     this.weekTemp = document.getElementById('weekTemp')
+    this.mainPage = document.getElementById('mainPage')
 
     this.timeTemp.addEventListener('click', () => {
       this.subPageTimeTemp.style.top = '0'
+      this.mainPage.style.display = 'none'
     })
     this.testBtn.addEventListener('click', () => {
       this.subPageTimeTemp.style = ''
+      this.mainPage.style.display = 'block'
 
       this.move = 0
       this.hourTemp.style.right = `${this.move}px`

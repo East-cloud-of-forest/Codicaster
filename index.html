@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/main.css">
 
   <!-- 아이콘 폰트 -->
@@ -17,116 +19,121 @@
 <body>
   <div id="body">
 
-    <!-- 위치 정보 -->
-    <section id="top">
+    <div id="mainPage" class='padeOut'>
+      <!-- 위치 정보 -->
+      <section id="top">
 
-      <article id="location">
-        <p>지역을 선택해주세요</p>
-      </article>
+        <article id="location">
+          <p>지역을 선택해주세요</p>
+        </article>
 
-      <i class="fas fa-map-marker-alt"></i>
+        <i class="fas fa-map-marker-alt"></i>
 
-      <div id="cityChoiceHidden">
-        <form id="cityChoice">
-          <button type="button" value="select">닫기</button>
-          <button type="button" value="seoul">서울특별시</button>
-          <button type="button" value="busan">부산광역시</button>
-          <button type="button" value="Daegu">대구광역시</button>
-          <button type="button" value="Daejeon">대전광역시</button>
-          <button type="button" value="Gwangju">광주광역시</button>
-          <button type="button" value="Incheon">인천광역시</button>
-          <button type="button" value="Ulsan">울산광역시</button>
-          <button type="button" value="Sejong">세종</button>
-          <button type="button" value="Gyeonggi-do">경기도</button>
-          <button type="button" value="Gangwon-do">강원도</button>
-          <button type="button" value="Chungcheongbuk-do">충청북도</button>
-          <button type="button" value="Chungcheongnam-do">충청남도</button>
-          <button type="button" value="Jeollabuk-do">전라북도</button>
-          <button type="button" value="Jeollanam-do">전라남도</button>
-          <button type="button" value="Gyeongsangbuk-do">경상북도</button>
-          <button type="button" value="Gyeongsangnam-do">경상남도</button>
-          <button type="button" value="jeju">제주도</button>
-        </form>
-      </div>
-
-    </section>
-
-    <!-- 현재 온도 및 날씨 정보 -->
-    <section id="weatherInfo">
-
-      <article id="temp">
-        <h1>&nbsp</h1>
-        <i class="fas fa-temperature-high"></i>
-      </article>
-
-      <article id="weatherIcon"></article>
-
-    </section>
-
-    <!-- 옷 정보 -->
-    <section id="clothes">
-      <h1>옷!</h1>
-    </section>
-
-    <!-- 시간별 온도 정보 -->
-    <section id="tempinfo">
-      <article id="timeTemp">
-        <div>
-          <p>아침</p>
-          <p class="morn">&nbsp</p>
+        <div id="cityChoiceHidden">
+          <form id="cityChoice">
+            <button type="button" value="select">닫기</button>
+            <button type="button" value="seoul">서울특별시</button>
+            <button type="button" value="busan">부산광역시</button>
+            <button type="button" value="Daegu">대구광역시</button>
+            <button type="button" value="Daejeon">대전광역시</button>
+            <button type="button" value="Gwangju">광주광역시</button>
+            <button type="button" value="Incheon">인천광역시</button>
+            <button type="button" value="Ulsan">울산광역시</button>
+            <button type="button" value="Sejong">세종</button>
+            <button type="button" value="Gyeonggi-do">경기도</button>
+            <button type="button" value="Gangwon-do">강원도</button>
+            <button type="button" value="Chungcheongbuk-do">충청북도</button>
+            <button type="button" value="Chungcheongnam-do">충청남도</button>
+            <button type="button" value="Jeollabuk-do">전라북도</button>
+            <button type="button" value="Jeollanam-do">전라남도</button>
+            <button type="button" value="Gyeongsangbuk-do">경상북도</button>
+            <button type="button" value="Gyeongsangnam-do">경상남도</button>
+            <button type="button" value="jeju">제주도</button>
+          </form>
         </div>
-        <div>
-          <p>오전</p>
-          <p class="eve">&nbsp</p>
+
+      </section>
+
+      <!-- 현재 온도 및 날씨 정보 -->
+      <section id="weatherInfo">
+
+        <article id="temp">
+          <div>
+            <h1>&nbsp</h1>
+            <i></i>
+          </div>
+        </article>
+
+        <article id="weatherIcon"></article>
+
+      </section>
+
+      <!-- 옷 정보 -->
+      <section id="clothes">
+        <h1>옷!</h1>
+      </section>
+
+      <!-- 시간별 온도 정보 -->
+      <section id="tempinfo">
+        <article id="timeTemp">
+          <div>
+            <p>아침</p>
+            <p class="morn">&nbsp</p>
+          </div>
+          <div>
+            <p>오전</p>
+            <p class="eve">&nbsp</p>
+          </div>
+          <div>
+            <p>오후</p>
+            <p class="day">&nbsp</p>
+          </div>
+          <div>
+            <p>밤</p>
+            <p class="night">&nbsp</p>
+          </div>
+        </article>
+      </section>
+    </div>
+
+
+    <!-- 시간별 온도 서브 페이지 -->
+    <div id="subPageTimeTemp">
+
+      <section id="test">
+        <button id="testX">x</button>
+
+        <div class="hourTemphidden">
+          <article id="hourTemp"></article>
         </div>
-        <div>
-          <p>오후</p>
-          <p class="day">&nbsp</p>
-        </div>
-        <div>
-          <p>밤</p>
-          <p class="night">&nbsp</p>
-        </div>
-      </article>
-    </section>
+
+        <button id="hourTempPrev"> < </button>
+        <button id="hourTempNext"> > </button>
+
+        <article id="weekTemp"></article>
+
+      </section>
+
+    </div>
+
+
+    <!-- 현재 날씨 정보 -->
+    <div id="subPageNowWeather">
+      <section id="nowWeather">
+        <button class="testX">x</button>
+        <article id="maxminTemp"></article>
+        <article id="windHumidity"></article>
+        <article id="nowTimeTemp"></article>
+        <article id="optionInfo"></article>
+        <article id="sunTime"></article>
+      </section>
+    </div>
+
+
+
+
 
   </div>
-
-
-
-
-  <!-- 시간별 온도 서브 페이지 -->
-  <div id="subPageTimeTemp">
-
-    <section id="test">
-      <button id="testX">x</button>
-
-      <div class="hourTemphidden">
-        <article id="hourTemp"></article>
-      </div>
-
-      <button id="hourTempPrev"> < </button>
-      <button id="hourTempNext"> > </button>
-
-      <article id="weekTemp"></article>
-
-    </section>
-
-  </div>
-
-
-  <!-- 현재 날씨 정보 -->
-  <div id="subPageNowWeather">
-    <section id="nowWeather">
-      <button class="testX">x</button>
-      <article id="maxminTemp"></article>
-      <article id="windHumidity"></article>
-      <article id="nowTimeTemp"></article>
-      <article id="optionInfo"></article>
-      <article id="sunTime"></article>
-    </section>
-  </div>
-
 
 
 
