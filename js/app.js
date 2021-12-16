@@ -1,5 +1,6 @@
 import { SubPageTimeTemp } from './subPageTimeTemp.js'
 import { SubPageNowWeather } from './subPageNowWeather.js'
+import { Animation } from './animation.js'
 
 // 도시 이름 데이터
 import CityInfo from './cityInfo.js'
@@ -29,11 +30,12 @@ class App {
     this.city = ''
     this.locationChoice()
 
+    this.Animation = new Animation()
+
     this.loaction = document.getElementsByTagName('location')
     this.location.addEventListener('click', this.gps.bind(this))
     this.gps()
 
-    this.SubPageTimeTemp = new SubPageTimeTemp()
     this.SubPageNowWeather = new SubPageNowWeather()
 
     window.addEventListener('resize', this.resize.bind(this))
@@ -41,11 +43,11 @@ class App {
   }
 
   padeIn() {
-    this.mainPage.className = ''
+    this.Animation.UpDownPadeIn(this.mainPage)
   }
 
   padeOut() {
-    this.mainPage.className = 'padeOut'
+    this.Animation.UpDownPadeOut(this.mainPage)
   }
 
   resize() {
@@ -91,7 +93,7 @@ class App {
       this.night.innerText = Math.round(data.daily[0].temp.night)
 
       // 서브페이지
-      this.SubPageTimeTemp.htmlInAPI(data)
+      this.SubPageTimeTemp = new SubPageTimeTemp(data)
       this.SubPageNowWeather.htmlInAPI(data, curMintemp, curMaxtemp)
       })
     .then(this.padeIn())
@@ -115,11 +117,11 @@ class App {
 
   clickCity(city) {
     this.cityChoice.style.display = 'none'
-    this.padeOut()
     this.city = city.value
     if (this.city == 'select') {
       return
     } else {
+      this.padeOut()
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
       )

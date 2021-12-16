@@ -38,6 +38,17 @@ body {
   opacity: 100;
 }
 
+.wait {
+  opacity: 0;
+  transform: scale(0.9);
+  top: 0;
+}
+
+.standby {
+  display: none !important;
+  opacity: 0;
+}
+
 /* 전체를 감싸는 div */
 #body {
   width: 100%;
@@ -188,10 +199,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  top: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.7s;
 }
 
 #subPageTimeTemp #test {

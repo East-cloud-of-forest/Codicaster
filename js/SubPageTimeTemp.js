@@ -1,5 +1,7 @@
+import { Animation } from './animation.js'
+
 export class SubPageTimeTemp {
-  constructor() {
+  constructor(data) {
     this.subPageTimeTemp = document.getElementById('subPageTimeTemp')
     this.timeTemp = document.getElementById('timeTemp')
     this.testBtn = document
@@ -8,27 +10,34 @@ export class SubPageTimeTemp {
     this.hourTemp = document.getElementById('hourTemp')
     this.hourTempNext = document.getElementById('hourTempNext')
     this.hourTempPrev = document.getElementById('hourTempPrev')
-    this.hourTempDivWidth = this.hourTemp.getBoundingClientRect().width / 48
-    this.oneMove = this.hourTempDivWidth * 12
-    this.maxMove = this.hourTempDivWidth * 36
-    this.move = 0
-    this.stageWidth = this.hourTempDivWidth * 48
-    this.stageHeight = 40
+    
     this.weekTemp = document.getElementById('weekTemp')
     this.mainPage = document.getElementById('mainPage')
+    this.Animation = new Animation()
+    this.move = 0
 
     this.timeTemp.addEventListener('click', () => {
-      this.subPageTimeTemp.style.top = '0'
-      this.mainPage.style.display = 'none'
+      this.Animation.SlideEnlargePadeOut(this.mainPage)
+      this.Animation.SlideEnlargePadeIn(this.subPageTimeTemp)
+
+      this.hourTempDivWidth = this.hourTemp.getBoundingClientRect().width / 48
+      this.oneMove = this.hourTempDivWidth * 12
+      this.maxMove = this.hourTempDivWidth * 36
+      this.stageWidth = this.hourTempDivWidth * 48
+      this.stageHeight = 40
+
+      this.htmlInAPI(data)
     })
     this.testBtn.addEventListener('click', () => {
-      this.subPageTimeTemp.style = ''
-      this.mainPage.style.display = 'block'
+      this.Animation.SlideEnlargePadeOut(this.subPageTimeTemp)
+      this.Animation.SlideEnlargePadeIn(this.mainPage)
 
-      this.move = 0
-      this.hourTemp.style.right = `${this.move}px`
-      this.hourTempPrev.style.display = 'none'
-      this.hourTempNext.style.display = 'block'
+      setTimeout(() => {
+        this.move = 0
+        this.hourTemp.style.right = `${this.move}px`
+        this.hourTempPrev.style.display = 'none'
+        this.hourTempNext.style.display = 'block'
+      },400)
     })
 
     document.addEventListener('click', this.clickPrevNext.bind(this))
