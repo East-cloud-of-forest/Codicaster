@@ -22,12 +22,9 @@ export class SubPageTimeTemp {
       this.Animation.SlideEnlargePadeOut(this.mainPage)
       this.Animation.SlideEnlargePadeIn(this.subPageTimeTemp)
 
-      // 시간별 온도 차트 사이즈 체크
-      this.hourTempDivWidth = this.body.getBoundingClientRect().width / 13
-      this.oneMove = this.hourTempDivWidth * 12
-      this.maxMove = this.hourTempDivWidth * 36
-      this.stageWidth = this.hourTempDivWidth * 48
-      this.stageHeight = 40
+      // 한페이지에 보일 시간 수
+      let timeTempDivCount = 8
+      this.timeTempChartSizing(timeTempDivCount)
       
       // 페이지 삽입
       this.htmlInAPI(data)
@@ -49,8 +46,13 @@ export class SubPageTimeTemp {
     document.addEventListener('click', this.clickPrevNext.bind(this))
   }
 
-  resize() {
-    console.log(1)
+  timeTempChartSizing(timeTempDivCount) {
+    this.hourTempDivWidth = ((this.body.getBoundingClientRect().width / 13) * 12) /timeTempDivCount
+    this.oneMove = this.hourTempDivWidth * timeTempDivCount
+    this.maxMove = this.oneMove * ((48 - timeTempDivCount) / timeTempDivCount)
+    this.stageWidth = this.hourTempDivWidth * 48
+    this.stageHeight = 40
+    this.hourTemp.style.width = `calc(100% * ${48 / timeTempDivCount})`
   }
 
   clickPrevNext(event) {
