@@ -15,23 +15,29 @@ export class SubPageTimeTemp {
     this.mainPage = document.getElementById('mainPage')
     this.Animation = new Animation()
     this.move = 0
+    this.body = document.getElementById('body')
 
+    // 서브페이지로 전환
     this.timeTemp.addEventListener('click', () => {
       this.Animation.SlideEnlargePadeOut(this.mainPage)
       this.Animation.SlideEnlargePadeIn(this.subPageTimeTemp)
 
-      this.hourTempDivWidth = this.hourTemp.getBoundingClientRect().width / 48
+      // 시간별 온도 차트 사이즈 체크
+      this.hourTempDivWidth = this.body.getBoundingClientRect().width / 13
       this.oneMove = this.hourTempDivWidth * 12
       this.maxMove = this.hourTempDivWidth * 36
       this.stageWidth = this.hourTempDivWidth * 48
       this.stageHeight = 40
-
+      
+      // 페이지 삽입
       this.htmlInAPI(data)
     })
+    // 서브페이지 닫기
     this.testBtn.addEventListener('click', () => {
       this.Animation.SlideEnlargePadeOut(this.subPageTimeTemp)
       this.Animation.SlideEnlargePadeIn(this.mainPage)
 
+      // 차트 위치 및 버튼 상태 리셋
       setTimeout(() => {
         this.move = 0
         this.hourTemp.style.right = `${this.move}px`
@@ -41,6 +47,10 @@ export class SubPageTimeTemp {
     })
 
     document.addEventListener('click', this.clickPrevNext.bind(this))
+  }
+
+  resize() {
+    console.log(1)
   }
 
   clickPrevNext(event) {
