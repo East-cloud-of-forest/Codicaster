@@ -186,7 +186,7 @@ body {
   justify-content: center;
 }
 #clothes h1 {
-  font-size: calc(50px + 28vh);
+  font-size: calc(50px + 20vh);
 }
 
 /* 온도정보 */
