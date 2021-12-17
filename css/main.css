@@ -24,10 +24,6 @@ body {
   overflow: hidden;
 }
 
-#mainPage {
-  transition: 0.7s;
-}
-
 .padeOut {
   transform: translateY(10vh);
   opacity: 0;
@@ -52,18 +48,25 @@ body {
 /* 전체를 감싸는 div */
 #body {
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
   max-width: 700px;
   margin: auto;
   background-color: #00BFFE;
   height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+#mainPage {
+  position: absolute;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  padding: 2%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  overflow: hidden;
-  position: relative;
-  padding: 2%;
   box-sizing: border-box;
+  transition: 0.7s;
 }
 
 /* 위치 정보 */
