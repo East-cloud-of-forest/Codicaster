@@ -24,6 +24,14 @@ body {
   overflow: hidden;
 }
 
+.wheel {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  bottom: -500px;
+}
+
 .padeOut {
   transform: translateY(10vh);
   opacity: 0;
