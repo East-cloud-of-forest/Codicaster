@@ -161,6 +161,8 @@ class App {
         } else {
           cityName = `${CityInfo[data.id][1]} ${CityInfo[data.id][2]}`
         }
+      } else {
+        this.showErrorMsg()
       }
       setTimeout(() => {
         this.location.innerText = `${cityName}`
