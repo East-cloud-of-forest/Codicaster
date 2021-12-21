@@ -148,26 +148,28 @@ class App {
 
   showLocation(position) {
     console.log(position)
-    let lat = position.coords.latitude
-    let lon = position.coords.longitude
+    // let lat = position.coords.latitude
+    // let lon = position.coords.longitude
+    let lat = 0
+    let lon = 0
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,)
     .then((response) => response.json())
     .then((data) => {
       let cityName = data.name
       console.log(CityInfo[data.id])
-      if (CityInfo[data.id] !== 'undefined') {
+      if (CityInfo[data.id] !== undefined) {
         if (CityInfo[data.id][1] == CityInfo[data.id][2]) {
           cityName = `${CityInfo[data.id][1]}`
         } else {
           cityName = `${CityInfo[data.id][1]} ${CityInfo[data.id][2]}`
         }
+        setTimeout(() => {
+          this.location.innerText = `${cityName}`
+          this.nowWeather(data)
+        },400)
       } else {
         this.showErrorMsg()
       }
-      setTimeout(() => {
-        this.location.innerText = `${cityName}`
-        this.nowWeather(data)
-      },400)
     })
     .catch((error) => console.log(('error', error)))
   }
