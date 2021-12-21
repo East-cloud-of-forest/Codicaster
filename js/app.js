@@ -148,10 +148,8 @@ class App {
 
   showLocation(position) {
     console.log(position)
-    // let lat = position.coords.latitude
-    // let lon = position.coords.longitude
-    let lat = 0
-    let lon = 0
+    let lat = position.coords.latitude
+    let lon = position.coords.longitude
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,)
     .then((response) => response.json())
     .then((data) => {
