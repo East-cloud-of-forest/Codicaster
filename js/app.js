@@ -11,6 +11,7 @@ class App {
     this.icon = new Image()
 
     this.temp = document.getElementById('temp').getElementsByTagName('h1')[0]
+    this.fillsLike = document.getElementById('temp').getElementsByTagName('span')[0]
     this.tempIcon = document.getElementById('temp').getElementsByTagName('i')[0]
     this.tempIcon.style.display = 'none'
 
@@ -25,6 +26,11 @@ class App {
       this.cityChoice.style.display = 'block'
       this.cityChoice.scrollTop = 0
     })
+
+    this.top = document.getElementById('top')
+    this.weatherInfo = document.getElementById('weatherInfo')
+    this.clothes = document.getElementById('clothes')
+    this.tempinfo = document.getElementById('tempinfo')
 
     this.location = document.getElementById('location').getElementsByTagName('p')[0]
     this.city = ''
@@ -42,28 +48,17 @@ class App {
     this.resize()
   }
 
-  padeIn() {
-    this.Animation.UpDownPadeIn(this.mainPage)
-  }
-
-  padeOut() {
-    this.Animation.UpDownPadeOut(this.mainPage)
-  }
-
-  resize() {
-    let vh = window.innerHeight * 0.01
-
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
-  }
-
   // Weather API
   nowWeather(data) {
     console.log(data)
+    this.resetErrorPage()
      // 메인페이지
-    this.icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    // this.icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+    this.icon.src = 'images/sun.SVG'
     this.weatherIcon.appendChild(this.icon)
 
     this.temp.innerHTML = `${Math.round(data.main.temp)}`
+    this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}`
     this.tempIcon.style.display = 'block'
 
     // 시간별 날씨
@@ -146,6 +141,7 @@ class App {
       )
     } else {
       this.location.innerText = '위치 정보를 지원하지 않는 브라우저 입니다.'
+      this.errorPage()
       this.padeIn()
     }
   }
@@ -177,7 +173,43 @@ class App {
   showErrorMsg() {
     this.location.innerText =
       '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
+    this.errorPage()
     this.padeIn()
+  }
+
+  // GPS 에러시 메인 페이지 구성
+  errorPage() {
+    this.weatherInfo.style.display = 'none'
+    this.clothes.style.display = 'none'
+    this.tempinfo.style.display = 'none'
+    this.top.style.backgroundColor = 'rgba(0,0,0,0.5)'
+    this.top.style.height = '100%'
+    this.mainPage.style.padding = '0'
+    this.mainPage.style.transition = '0s'
+  }
+
+  resetErrorPage() {
+    this.weatherInfo.style = ''
+    this.clothes.style = ''
+    this.tempinfo.style = ''
+    this.top.style = ''
+    this.mainPage.style = ''
+  }
+
+  // 애니메이션
+  padeIn() {
+    this.Animation.UpDownPadeIn(this.mainPage)
+  }
+
+  padeOut() {
+    this.Animation.UpDownPadeOut(this.mainPage)
+  }
+
+  // vh 변수화
+  resize() {
+    let vh = window.innerHeight * 0.01
+
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
   }
 }
 
