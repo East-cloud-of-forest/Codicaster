@@ -92,13 +92,15 @@ export class AnimationAndDesign {
       case '50d':
         return`
         background: rgb(118,124,134);
-background: linear-gradient(0deg, rgba(118,124,134,1) 30%, rgba(142,157,167,1) 60%, rgba(126,134,143,1) 90%);
+        background: linear-gradient(0deg, rgba(118,124,134,1) 30%, rgba(142,157,167,1) 60%, rgba(126,134,143,1) 90%);
         `
 
       case '01n':
       case '02n':
       case '03n':
       case '04n':
+      case '13n':
+      case '50n':
         return `
         background: rgb(7,7,9);
         background: linear-gradient(0deg, rgba(7,7,9,1) 0%, rgba(21,21,42,1) 40%, rgba(44,51,92,1) 80%, rgba(69,69,110,1) 100%);
@@ -109,12 +111,6 @@ background: linear-gradient(0deg, rgba(118,124,134,1) 30%, rgba(142,157,167,1) 6
         return `
         background: rgb(7,7,9);
         background: linear-gradient(0deg, rgba(7,7,9,1) 0%, rgba(23,23,36,1) 40%, rgba(34,37,56,1) 80%, rgba(48,48,68,1) 100%);
-        `
-      case '13n':
-      case '50n':
-        return `
-        background: rgb(7,7,9);
-        background: linear-gradient(0deg, rgba(7,7,9,1) 0%, rgba(21,21,42,1) 40%, rgba(44,51,92,1) 80%, rgba(69,69,110,1) 100%);
         `
     }
   }
