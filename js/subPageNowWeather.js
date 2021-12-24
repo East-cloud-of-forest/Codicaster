@@ -1,4 +1,4 @@
-import { Animation } from './animation.js'
+import { AnimationAndDesign } from './animationAndDesign.js'
 
 export class SubPageNowWeather {
   constructor() {
@@ -11,17 +11,17 @@ export class SubPageNowWeather {
     this.optionInfo = document.getElementById('optionInfo')
     this.sunTime = document.getElementById('sunTime')
     this.mainPage = document.getElementById('mainPage')
-    this.Animation = new Animation()
+    this.AnimationAndDesign = new AnimationAndDesign()
 
     this.weatherInfo.addEventListener('click', () => {
       let timeTemp = document.getElementById('timeTemp').cloneNode(true)
       this.nowTimeTemp.appendChild(timeTemp)
-      this.Animation.SlideEnlargePadeOut(this.mainPage)
-      this.Animation.SlideEnlargePadeIn(this.subPageNowWeather)
+      this.AnimationAndDesign.SlideEnlargePadeOut(this.mainPage)
+      this.AnimationAndDesign.SlideEnlargePadeIn(this.subPageNowWeather)
     })
     this.close.addEventListener('click', () => {
-      this.Animation.SlideEnlargePadeOut(this.subPageNowWeather)
-      this.Animation.SlideEnlargePadeIn(this.mainPage)
+      this.AnimationAndDesign.SlideEnlargePadeOut(this.subPageNowWeather)
+      this.AnimationAndDesign.SlideEnlargePadeIn(this.mainPage)
       setTimeout(() => {
         this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
       },250)

@@ -1,4 +1,4 @@
-import { Animation } from './animation.js'
+import { AnimationAndDesign } from './animationAndDesign.js'
 
 export class SubPageTimeTemp {
   constructor(data) {
@@ -13,14 +13,14 @@ export class SubPageTimeTemp {
     
     this.weekTemp = document.getElementById('weekTemp')
     this.mainPage = document.getElementById('mainPage')
-    this.Animation = new Animation()
+    this.AnimationAndDesign = new AnimationAndDesign()
     this.move = 0
     this.body = document.getElementById('body')
 
     // 서브페이지로 전환
     this.timeTemp.addEventListener('click', () => {
-      this.Animation.SlideEnlargePadeOut(this.mainPage)
-      this.Animation.SlideEnlargePadeIn(this.subPageTimeTemp)
+      this.AnimationAndDesign.SlideEnlargePadeOut(this.mainPage)
+      this.AnimationAndDesign.SlideEnlargePadeIn(this.subPageTimeTemp)
 
       // 한페이지에 보일 시간 수
       let timeTempDivCount = 8
@@ -31,8 +31,8 @@ export class SubPageTimeTemp {
     })
     // 서브페이지 닫기
     this.testBtn.addEventListener('click', () => {
-      this.Animation.SlideEnlargePadeOut(this.subPageTimeTemp)
-      this.Animation.SlideEnlargePadeIn(this.mainPage)
+      this.AnimationAndDesign.SlideEnlargePadeOut(this.subPageTimeTemp)
+      this.AnimationAndDesign.SlideEnlargePadeIn(this.mainPage)
 
       // 차트 위치 및 버튼 상태 리셋
       setTimeout(() => {

@@ -50,11 +50,12 @@ body {
   width: 100%;
   max-width: 700px;
   margin: auto;
-  background-color: #00BFFE;
+  background: #00BFFE;
   height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  transition: background 0.7s;
 }
 
 /* 메인페이지 */
@@ -62,7 +63,7 @@ body {
   position: absolute;
   height: calc(var(--vh, 1vh) * 100);
   width: 100%;
-  padding: 2%;
+  padding: 3%;
   bottom: 0;
   left: 0;
   right: 0;
@@ -80,7 +81,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* flex 임시 */
 }
 
 #top i {
@@ -90,7 +90,7 @@ body {
 
 #top #location p {
   font-family: 'Roboto', sans-serif;
-  font-size: calc(12px + 0.8vh);
+  font-size: 2.3vh;
   color: white;
 }
 
@@ -132,8 +132,9 @@ body {
   justify-content: space-around;
   width: 100%;
   height: 25vh;
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.2);
   border-radius: 2vh;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 
 #weatherInfo> article {
@@ -146,36 +147,49 @@ body {
   text-align: center;
 }
 
-#weatherInfo #weatherIcon img {
-  width: 70%;
-  height: 70%;
-}
+/* #weatherInfo #weatherIcon img {
+} */
 
 #weatherInfo #temp div {
   position: relative;
+  display: flex;
 }
 
 #weatherInfo #temp div h1 {
   font-size: 14vh;
-  font-family: 'Poiret One', cursive;
-  color: white
+  font-family: 'Outfit', sans-serif;
+  color: white;
+  font-weight: 100;
 }
 
-#weatherInfo #temp span {
-  font-size: 1.7vh;
-  color: rgba(255,255,255,0.8);
+#weatherInfo #temp div:nth-child(2) {
   position: relative;
   top: -1vh;
 }
 
-#weatherInfo #temp i {
+#weatherInfo #temp div span {
+  font-size: 1.7vh;
+  color: rgba(255,255,255,0.8);
+}
+
+#weatherInfo #temp div:nth-child(1) i {
   position: absolute;
-  border: 0.8vh solid white;
-  width: 1.5vh;
-  height: 1.5vh;
+  border: 0.5vh solid white;
+  width: 1.2vh;
+  height: 1.2vh;
   border-radius: 50%;
-  top: 0.3vh;
-  right: -4vh;
+  top: 3vh;
+  right: -3vh;
+}
+
+#weatherInfo #temp div:nth-child(2) i {
+  position: absolute;
+  border: 0.1vh solid white;
+  width: 0.35vh;
+  height: 0.35vh;
+  border-radius: 50%;
+  top: 0;
+  right: -0.8vh;
 }
 
 /* 옷 정보 */
@@ -187,7 +201,7 @@ body {
   justify-content: center;
 }
 #clothes h1 {
-  font-size: calc(50px + 20vh);
+  font-size: 30vh;
 }
 
 /* 온도정보 */
@@ -199,17 +213,16 @@ body {
 
 #timeTemp {
   display: flex;
-  margin: 0 50px;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid black;
-  border-radius: 20px;
-  padding: 15px 0;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 2vh;
   width: 100%;
 }
 
 #timeTemp div {
   text-align: center;
+  color: white;
 }
 
 /* 서브페이지 */
@@ -361,6 +374,10 @@ body {
 
 
 /* 현재 날씨 */
+#subPageNowWeather {
+  padding: 3%;
+}
+
 #subPageNowWeather #nowWeather {
   width: 100%;
   height: 100%;

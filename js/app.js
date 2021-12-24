@@ -1,6 +1,6 @@
 import { SubPageTimeTemp } from './subPageTimeTemp.js'
 import { SubPageNowWeather } from './subPageNowWeather.js'
-import { Animation } from './animation.js'
+import { AnimationAndDesign } from './animationAndDesign.js'
 
 // 도시 이름 데이터
 import CityInfo from './cityInfo.js'
@@ -8,7 +8,7 @@ import CityInfo from './cityInfo.js'
 class App {
   constructor() {
     this.weatherIcon = document.getElementById('weatherIcon')
-    this.icon = new Image()
+    this.icon = this.weatherIcon.getElementsByTagName('img')[0]
 
     this.temp = document.getElementById('temp').getElementsByTagName('h1')[0]
     this.fillsLike = document.getElementById('temp').getElementsByTagName('span')[0]
@@ -16,6 +16,7 @@ class App {
     this.tempIcon.style.display = 'none'
 
     this.mainPage = document.getElementById('mainPage')
+    this.background = document.getElementById('body')
 
     this.lon = ''
     this.lat = ''
@@ -36,7 +37,7 @@ class App {
     this.city = ''
     this.locationChoice()
 
-    this.Animation = new Animation()
+    this.AnimationAndDesign = new AnimationAndDesign()
 
     this.loaction = document.getElementsByTagName('location')
     this.location.addEventListener('click', this.gps.bind(this))
@@ -52,10 +53,27 @@ class App {
   nowWeather(data) {
     console.log(data)
     this.resetErrorPage()
-     // 메인페이지
-    // this.icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-    this.icon.src = 'images/sun.SVG'
-    this.weatherIcon.appendChild(this.icon)
+    //  메인페이지
+    let iconsorce = this.AnimationAndDesign.icon(data.weather[0].icon)
+    this.icon.src = `images/${iconsorce[0]}`
+    this.icon.style.width = iconsorce[1]
+    this.icon.style.height = iconsorce[1]
+    this.background.style = this.AnimationAndDesign.backgroundcolor(data.weather[0].icon)
+
+
+
+
+    // 아이콘 및 배경 테스트
+
+    // let test = '11n'
+    // let iconsorce = this.AnimationAndDesign.icon(test)
+    // this.icon.src = `images/${iconsorce[0]}`
+    // this.icon.style.width = iconsorce[1]
+    // this.icon.style.height = iconsorce[1]
+    // this.background.style = this.AnimationAndDesign.backgroundcolor(test)
+
+
+
 
     this.temp.innerHTML = `${Math.round(data.main.temp)}`
     this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}`
@@ -176,6 +194,12 @@ class App {
     this.location.innerText =
       '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
     this.errorPage()
+
+    // gps 안될때 테스트
+    // let a = {1 : 'busan'}
+    // a.value = 'busan'
+    // this.clickCity(a)
+
     this.padeIn()
   }
 
@@ -200,11 +224,11 @@ class App {
 
   // 애니메이션
   padeIn() {
-    this.Animation.UpDownPadeIn(this.mainPage)
+    this.AnimationAndDesign.UpDownPadeIn(this.mainPage)
   }
 
   padeOut() {
-    this.Animation.UpDownPadeOut(this.mainPage)
+    this.AnimationAndDesign.UpDownPadeOut(this.mainPage)
   }
 
   // vh 변수화
