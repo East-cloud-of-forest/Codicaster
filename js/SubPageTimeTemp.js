@@ -4,9 +4,7 @@ export class SubPageTimeTemp {
   constructor(data) {
     this.subPageTimeTemp = document.getElementById('subPageTimeTemp')
     this.timeTemp = document.getElementById('timeTemp')
-    this.testBtn = document
-      .getElementById('subPageTimeTemp')
-      .getElementsByTagName('button')[0]
+    this.CloseBtn = document.getElementById('CloseBtn')
     this.hourTemp = document.getElementById('hourTemp')
     this.hourTempNext = document.getElementById('hourTempNext')
     this.hourTempPrev = document.getElementById('hourTempPrev')
@@ -30,7 +28,7 @@ export class SubPageTimeTemp {
       this.htmlInAPI(data)
     })
     // 서브페이지 닫기
-    this.testBtn.addEventListener('click', () => {
+    this.CloseBtn.addEventListener('click', () => {
       this.AnimationAndDesign.SlideEnlargePadeOut(this.subPageTimeTemp)
       this.AnimationAndDesign.SlideEnlargePadeIn(this.mainPage)
 
@@ -115,7 +113,7 @@ export class SubPageTimeTemp {
         <article>
           <div class="point"><p>${temp}˚</p></div>
         </article>
-        <img src="http://openweathermap.org/img/wn/${data.hourly[i].weather[0].icon}@2x.png" alt="icon ${i}">
+        <img src="images/${this.AnimationAndDesign.icon(data.hourly[i].weather[0].icon)[0]}" alt="icon ${i}">
         ${hour}
       `
       this.hourTemp.appendChild(div)
@@ -162,20 +160,28 @@ export class SubPageTimeTemp {
       this.weekTemp.innerHTML += `
         <article>
           <div>
-            <p>${day}</p>
-            <p>${date}</p>
+            <div>
+              <p>${day}</p>
+              <p>${date}</p>
+            </div>
+            <div>
+              <p>${maxtemp}˚</p>
+              <p>/</p>
+              <p>${mintemp}˚</p>
+            </div>
+            <div>
+              <i class="fas fa-umbrella"></i>
+              <p>${pop}%</p>
+            </div>
           </div>
-          <img src="http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}@2x.png" alt="icon ${i}">
           <div>
-            <i class="fas fa-umbrella"></i>
-            <p>${pop} %</p>
-          </div>
-          <div>
-            <p>${maxtemp}</p>
-            <p>${mintemp}</p>
+            <img src="images/${this.AnimationAndDesign.icon(data.daily[i].weather[0].icon)[0]}" alt="icon ${i}">
           </div>
         </article>
       `
+
+      this.weekIcon = this.weekTemp.getElementsByTagName('img')[i]
+      this.weekIcon.style.width = this.AnimationAndDesign.icon(data.daily[i].weather[0].icon)[1]
     }
   }
 

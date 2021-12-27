@@ -147,9 +147,6 @@ body {
   text-align: center;
 }
 
-/* #weatherInfo #weatherIcon img {
-} */
-
 #weatherInfo #temp div {
   position: relative;
   display: flex;
@@ -180,16 +177,6 @@ body {
   border-radius: 50%;
   top: 3vh;
   right: -3vh;
-}
-
-#weatherInfo #temp div:nth-child(2) i {
-  position: absolute;
-  border: 0.1vh solid white;
-  width: 0.35vh;
-  height: 0.35vh;
-  border-radius: 50%;
-  top: 0;
-  right: -0.8vh;
 }
 
 /* 옷 정보 */
@@ -240,30 +227,67 @@ body {
   transition: 0.7s;
 }
 
-#subPageTimeTemp #test {
+#subPageTimeTemp #TimeWeather {
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
   max-width: 700px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: relative;
 }
 
-#subPageTimeTemp #test #testX {
-  width: 100px;
-  height: 20px;
-  margin: 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
+#subPageTimeTemp #TimeWeather .space {
+  height: 3vh;
+  width: 100%;
 }
 
-#subPageTimeTemp #test .hourTemphidden {
+#subPageTimeTemp #TimeWeather #CloseBtn {
+  height: 8vh;
+  background-color: rgba(255,255,255,0);
+  border: none;
+}
+
+  #subPageTimeTemp #TimeWeather #CloseBtn::after {
+    content: '';
+    width: 3vh;
+    height: 3vh;
+    border-top: 0.7vh solid white ;
+    border-right: 0.7vh solid white ;
+    transform: rotate(135deg);
+    display: inline-block;
+    position: relative;
+    animation: 1.7s linear 1s 3.3 closeBtn;
+    opacity: 0.5;
+    top: -25px;
+  }
+
+  @keyframes closeBtn {
+    from {
+      top: -50px;
+      opacity: 0;
+    }
+
+    30% {
+      opacity: 50%;
+    }
+
+    60% {
+      top: 0px;
+      opacity: 10%;
+    }
+
+    to {
+      top: 0px;
+      opacity: 0;
+    }
+  }
+
+#subPageTimeTemp #TimeWeather .hourTemphidden {
   overflow: hidden;
   width: calc((100% / 13) * 12);
   margin: 0 calc((100% / 13) / 2);
-  height: 15%;
+  height: 15vh;
 }
   
   /* 시간별 온도 */
@@ -316,6 +340,7 @@ body {
     border-radius: 50px;
     width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
   }
 
   #subPageTimeTemp #hourTempNext {
@@ -340,9 +365,11 @@ body {
   /* 주간 온도 */
   #subPageTimeTemp #weekTemp {
     display: flex;
-    flex-direction: column;
-    height: 65%;
-    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+    padding: 0 3%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
   }
 
   #subPageTimeTemp #weekTemp article {
@@ -350,28 +377,89 @@ body {
     justify-content: space-around;
     text-align: center;
     align-items: center;
-    height: calc(100% / 8);
+    width: 47%;
+    margin: 1.5%;
+    box-sizing: border-box;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 2vh;
+    color: white;
   }
 
-  #subPageTimeTemp #weekTemp article div:nth-child(1), #subPageTimeTemp #weekTemp article div:nth-child(4) {
-    width: 10%;
-  } 
+  #subPageTimeTemp #weekTemp article div {
+    width: 50%;
+  }
 
-  #subPageTimeTemp #weekTemp article div:nth-child(3) {
+  #subPageTimeTemp #weekTemp article> div:nth-child(1) {
+    padding: 5%;
+    box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 10%;
-  }
-
-  #subPageTimeTemp #weekTemp article div:nth-child(3) i {
-    color: blue;
-  }
-
-  #subPageTimeTemp #weekTemp article img {
+    flex-direction: column;
     height: 100%;
+    width: 50%;
   }
 
+  #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(1) {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    text-align: left;
+  }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(1) p:nth-child(1) {
+      font-size: 2vh;
+      padding-right: 5px;
+    }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(1) p:nth-child(2) {
+      font-size: 1.3vh;
+      color: rgba(255,255,255,0.5);
+    }
+
+  #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 3.5vh;
+    height: 6.9vh;
+    align-items: center;
+  }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p:nth-child(1) {
+      width: 50%;
+      color: #ff9e9d;
+      position: relative;
+      top: -0.5vh;
+    }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p:nth-child(2) {
+      font-size: 4vh;
+      color: rgba(255,255,255,0.5);
+    }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p:nth-child(3) {
+      width: 50%;
+      color: #cbdeff;
+      position: relative;
+      top: 0.5vh;
+    }
+
+  #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(3) {
+    width: 100%;
+    display: flex;
+    font-size: 1.7vh;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgba(131,176,255,0.6);
+  }
+
+    #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(3) p {
+      width: 4.4vh;
+      text-align: right;
+    }
 
 /* 현재 날씨 */
 #subPageNowWeather {

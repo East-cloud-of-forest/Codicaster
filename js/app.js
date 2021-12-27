@@ -76,7 +76,7 @@ class App {
 
 
     this.temp.innerHTML = `${Math.round(data.main.temp)}`
-    this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}`
+    this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}˚`
     this.tempIcon.style.display = 'block'
 
     // 시간별 날씨
