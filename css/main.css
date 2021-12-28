@@ -365,9 +365,10 @@ body {
 
   #subPageTimeTemp #hourTemp div article .point span {
     position: absolute;
-    top: -22px;
+    top: -25px;
     transform: translate(-50%);
     font-size: 1.5vh;
+    color: rgba(255,255,255,0.6);
   }
 
   #subPageTimeTemp #hourTemp div img {

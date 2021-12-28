@@ -151,7 +151,8 @@ export class SubPageTimeTemp {
       this.ctx.arc(pointX, pointY, 3, 0, Math.PI*2, false)
       this.ctx.moveTo(presentX, presentY)
       this.ctx.lineTo(pointX, pointY)
-      this.ctx.strokeStyle = 'rgba(255, 255, 255, 1)'
+      this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'
+      this.ctx.lineWidth = 6
       this.ctx.stroke()
       this.ctx.fillStyle = 'rgba(255, 255, 255, 1)'
       this.ctx.fill()
