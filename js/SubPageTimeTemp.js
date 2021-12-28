@@ -43,6 +43,9 @@ export class SubPageTimeTemp {
 
     document.addEventListener('click', this.clickPrevNext.bind(this))
     let backGroundColorPick = this.body.style.background.split('(')[4].split(')')[0]
+    if(this.body.style.background.split('(')[5]) {
+      backGroundColorPick = this.body.style.background.split('(')[5].split(')')[0]
+    }
     document.documentElement.style.setProperty('--btn-color', `rgba(${backGroundColorPick},1)`)
   }
 
