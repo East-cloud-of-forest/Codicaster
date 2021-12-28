@@ -65,7 +65,7 @@ class App {
 
     // 아이콘 및 배경 테스트
 
-    // let test = '11n'
+    // let test = '50d'
     // let iconsorce = this.AnimationAndDesign.icon(test)
     // this.icon.src = `images/${iconsorce[0]}`
     // this.icon.style.width = iconsorce[1]
@@ -191,14 +191,14 @@ class App {
   }
 
   showErrorMsg() {
-    this.location.innerText =
-      '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
-    this.errorPage()
+    // this.location.innerText =
+    //   '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
+    // this.errorPage()
 
     // gps 안될때 테스트
-    // let a = {1 : 'busan'}
-    // a.value = 'busan'
-    // this.clickCity(a)
+    let a = {1 : 'busan'}
+    a.value = 'busan'
+    this.clickCity(a)
 
     this.padeIn()
   }

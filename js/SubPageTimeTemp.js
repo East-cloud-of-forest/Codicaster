@@ -37,20 +37,23 @@ export class SubPageTimeTemp {
         this.move = 0
         this.hourTemp.style.right = `${this.move}px`
         this.hourTempPrev.style.display = 'none'
-        this.hourTempNext.style.display = 'block'
+        this.hourTempNext.style.display = 'flex'
       },400)
     })
 
     document.addEventListener('click', this.clickPrevNext.bind(this))
+    let backGroundColorPick = this.body.style.background.split('(')[4].split(')')[0]
+    document.documentElement.style.setProperty('--btn-color', `rgba(${backGroundColorPick},1)`)
   }
 
   timeTempChartSizing(timeTempDivCount) {
-    this.hourTempDivWidth = ((this.body.getBoundingClientRect().width / 13) * 12) /timeTempDivCount
+    this.hourTempDivWidth = (this.body.getBoundingClientRect().width - (this.body.getBoundingClientRect().width * 0.06)) / (timeTempDivCount + 1)
     this.oneMove = this.hourTempDivWidth * timeTempDivCount
     this.maxMove = this.oneMove * ((48 - timeTempDivCount) / timeTempDivCount)
     this.stageWidth = this.hourTempDivWidth * 48
     this.stageHeight = 40
-    this.hourTemp.style.width = `calc(100% * ${48 / timeTempDivCount})`
+    this.hourTemp.style.width = `calc(100% * ${48 / (timeTempDivCount + 1)})`
+    this.hourTemp.style.marginLeft = `${this.hourTempDivWidth / 2}px`
   }
 
   clickPrevNext(event) {
@@ -62,7 +65,7 @@ export class SubPageTimeTemp {
           this.hourTempNext.style.display = 'none'
         }
         if (this.move > 0) {
-          this.hourTempPrev.style.display = 'block'
+          this.hourTempPrev.style.display = 'flex'
         }
         this.hourTemp.style.right = `${this.move}px`
         break
@@ -73,7 +76,7 @@ export class SubPageTimeTemp {
           this.hourTempPrev.style.display = 'none'
         }
         if (this.move < this.maxMove) {
-          this.hourTempNext.style.display = 'block'
+          this.hourTempNext.style.display = 'flex'
         }
         this.hourTemp.style.right = `${this.move}px`
         break
@@ -113,10 +116,15 @@ export class SubPageTimeTemp {
         <article>
           <div class="point"><p>${temp}˚</p></div>
         </article>
-        <img src="images/${this.AnimationAndDesign.icon(data.hourly[i].weather[0].icon)[0]}" alt="icon ${i}">
+        <div>
+          <img src="images/${this.AnimationAndDesign.icon(data.hourly[i].weather[0].icon)[0]}" alt="icon ${i}">
+        </div>
         ${hour}
       `
       this.hourTemp.appendChild(div)
+
+      this.timeicon = this.hourTemp.getElementsByTagName('img')[i]
+      this.timeicon.style.width = this.AnimationAndDesign.icon(data.hourly[i].weather[0].icon)[1]
 
       this.tempPersent = 10 + (Math.round(data.hourly[i].temp) - min) / range * 70
       this.chartPoint[i].style.bottom = `${this.tempPersent}%`
@@ -128,16 +136,17 @@ export class SubPageTimeTemp {
 
       if (i - 1 >= 0) {
         let tP = 10 + (Math.round(data.hourly[i - 1].temp) - min) / range * 70
-        presentY = 38 - (40 * (tP / 100))
         presentX = (this.hourTempDivWidth * i - this.hourTempDivWidth / 2) + 1
+        presentY = 38 - (40 * (tP / 100))
       }
 
       this.ctx.beginPath()
       this.ctx.arc(pointX, pointY, 3, 0, Math.PI*2, false)
       this.ctx.moveTo(presentX, presentY)
       this.ctx.lineTo(pointX, pointY)
+      this.ctx.strokeStyle = 'rgba(255, 255, 255, 1)'
       this.ctx.stroke()
-      this.ctx.fillstyle = "green"
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 1)'
       this.ctx.fill()
       this.ctx.closePath()
     }

@@ -258,6 +258,7 @@ body {
     display: inline-block;
     position: relative;
     animation: 1.7s linear 1s 3.3 closeBtn;
+    animation-delay: -0.01s;
     opacity: 0.5;
     top: -25px;
   }
@@ -276,19 +277,54 @@ body {
       top: 0px;
       opacity: 10%;
     }
-
+    
     to {
       top: 0px;
       opacity: 0;
     }
   }
 
+#hourTempBox {
+  height: 15vh;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 3%;
+}
+
 #subPageTimeTemp #TimeWeather .hourTemphidden {
   overflow: hidden;
-  width: calc((100% / 13) * 12);
-  margin: 0 calc((100% / 13) / 2);
-  height: 15vh;
+  width: 100%;
+  height: 100%;
+  border-radius: 2vh;
+  background: rgba(255,255,255,0.2);
 }
+
+  #subPageTimeTemp .hourTemphidden::before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 3%;
+    height: 100%;
+    width: 4vh;
+    background-image: linear-gradient(to left, var(--btn-color), rgba(255, 255, 255, 0));
+    z-index: 10;
+    border-radius: 0 2vh 2vh 0;
+  }
+
+  #subPageTimeTemp .hourTemphidden::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 3%;
+    height: 100%;
+    width: 4vh;
+    background-image: linear-gradient(to right, var(--btn-color), rgba(255, 255, 255, 0));
+    z-index: 10;
+    border-radius: 2vh 0 0 2vh;
+  }
   
   /* 시간별 온도 */
   #subPageTimeTemp #hourTemp {
@@ -297,9 +333,10 @@ body {
     position: relative;
     right: 0px;
     transition: 0.5s;
+    color: white;
   }
 
-  #subPageTimeTemp #hourTemp div {
+  #subPageTimeTemp #hourTemp> div {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -345,22 +382,53 @@ body {
 
   #subPageTimeTemp #hourTempNext {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    top: 35px;
+    width: 6vh;
+    height: 100%;
     right: 0;
+    top: 0;
+    background: rgba(255,255,255,0);
+    border: none;
+    display: flex;
+    align-items: center;
+    z-index: 20;
   }
+
+    #subPageTimeTemp #hourTempNext::before {
+      content: '';
+      width: 3vh;
+      height: 3vh;
+      border-top: 0.7vh solid white;
+      border-right: 0.7vh solid white;
+      transform: rotate(45deg);
+      position: absolute;
+      right: 1vh;
+      opacity: 0.7;
+    }
 
   #subPageTimeTemp #hourTempPrev {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    top: 35px;
+    width: 6vh;
+    height: 100%;
+    top: 0;
     left: 0;
+    background: rgba(255,255,255,0);
+    border: none;
+    align-items: center;
     display: none;
+    z-index: 20;
   }
+
+    #subPageTimeTemp #hourTempPrev::before {
+      content: '';
+      width: 3vh;
+      height: 3vh;
+      border-top: 0.7vh solid white;
+      border-right: 0.7vh solid white;
+      transform: rotate(225deg);
+      position: absolute;
+      left: 1vh;
+      opacity: 0.7;
+    }
 
   /* 주간 온도 */
   #subPageTimeTemp #weekTemp {
@@ -370,6 +438,7 @@ body {
     padding: 0 3%;
     box-sizing: border-box;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   #subPageTimeTemp #weekTemp article {
@@ -377,8 +446,8 @@ body {
     justify-content: space-around;
     text-align: center;
     align-items: center;
-    width: 47%;
-    margin: 1.5%;
+    width: 48.5%;
+    margin: 1.5% 0;
     box-sizing: border-box;
     background-color: rgba(255,255,255,0.2);
     border-radius: 2vh;
@@ -430,7 +499,7 @@ body {
 
     #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p:nth-child(1) {
       width: 50%;
-      color: #ff9e9d;
+      color: #ffd5ec;
       position: relative;
       top: -0.5vh;
     }
@@ -442,7 +511,7 @@ body {
 
     #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(2) p:nth-child(3) {
       width: 50%;
-      color: #cbdeff;
+      color: #d6f4ff;
       position: relative;
       top: 0.5vh;
     }
@@ -453,7 +522,7 @@ body {
     font-size: 1.7vh;
     justify-content: flex-start;
     align-items: center;
-    color: rgba(131,176,255,0.6);
+    color: rgba(255,255,255,0.65);
   }
 
     #subPageTimeTemp #weekTemp article> div:nth-child(1) div:nth-child(3) p {
