@@ -285,7 +285,7 @@ body {
   }
 
 #hourTempBox {
-  height: 15vh;
+  height: 16vh;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -346,6 +346,8 @@ body {
   #subPageTimeTemp #hourTempChart {
     position: absolute;
     top: 20px;
+    width: var(--canvas-with);
+    height: var(--canvas-height);
   }
 
   #subPageTimeTemp #hourTemp div article {
@@ -361,23 +363,33 @@ body {
     left: calc(50% - 1px)
   }
 
-  #subPageTimeTemp #hourTemp div article .point p {
+  #subPageTimeTemp #hourTemp div article .point span {
     position: absolute;
     top: -22px;
     transform: translate(-50%);
-    font-size: 14px;
+    font-size: 1.5vh;
   }
 
   #subPageTimeTemp #hourTemp div img {
     width: 100%;
+    margin-top: 1vh;
+  }
+
+  #subPageTimeTemp #hourTemp div> p {
+    font-size: 1.6vh;
+    height: 2.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1vh;
   }
 
   #subPageTimeTemp #hourTemp .box {
-    border: 1px solid black;
     border-radius: 50px;
-    width: 100%;
-    margin: 0 auto;
+    background: rgba(255,255,255,0.3);
     box-sizing: border-box;
+    margin-left: 0.7vh;
+    margin-right: 0.7vh;
   }
 
   #subPageTimeTemp #hourTempNext {

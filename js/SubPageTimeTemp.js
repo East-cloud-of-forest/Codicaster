@@ -89,8 +89,15 @@ export class SubPageTimeTemp {
     this.chartPoint = this.hourTemp.getElementsByClassName('point')
     this.canvas = document.getElementById('hourTempChart')
     this.ctx = this.canvas.getContext('2d')
-    this.canvas.width = this.stageWidth
-    this.canvas.height = this.stageHeight
+    this.canvas.style.width = this.stageWidth
+    this.canvas.style.height = this.stageHeight
+    this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1
+    this.canvas.width = this.stageWidth * this.pixelRatio
+    this.canvas.height = this.stageHeight * this.pixelRatio
+    this.ctx.scale(this.pixelRatio, this.pixelRatio)
+    document.documentElement.style.setProperty('--canvas-with', `${this.stageWidth}px`)
+    document.documentElement.style.setProperty('--canvas-height', `${this.stageHeight}px`)
+    
 
     let max = Math.round(Math.max.apply(Math, data.hourly.map((o) => {return o.temp})))
     let min = Math.round(Math.min.apply(Math, data.hourly.map((o) => {return o.temp})))
@@ -114,7 +121,7 @@ export class SubPageTimeTemp {
       let div = document.createElement('div')
       div.innerHTML = `
         <article>
-          <div class="point"><p>${temp}˚</p></div>
+          <div class="point"><span>${temp}˚</span></div>
         </article>
         <div>
           <img src="images/${this.AnimationAndDesign.icon(data.hourly[i].weather[0].icon)[0]}" alt="icon ${i}">
