@@ -4,7 +4,7 @@ export class SubPageNowWeather {
   constructor() {
     this.subPageNowWeather = document.getElementById('subPageNowWeather')
     this.weatherInfo = document.getElementById('weatherInfo')
-    this.close = document.getElementsByClassName('testX')[0]
+    this.CloseBtn = this.subPageNowWeather.getElementsByClassName('CloseBtn')[0]
     this.nowTimeTemp = document.getElementById('nowTimeTemp')
     this.maxminTemp = document.getElementById('maxminTemp')
     this.windHumidity = document.getElementById('windHumidity')
@@ -19,39 +19,62 @@ export class SubPageNowWeather {
       this.AnimationAndDesign.SlideEnlargePadeOut(this.mainPage)
       this.AnimationAndDesign.SlideEnlargePadeIn(this.subPageNowWeather)
     })
-    this.close.addEventListener('click', () => {
+    this.CloseBtn.addEventListener('click', () => {
       this.AnimationAndDesign.SlideEnlargePadeOut(this.subPageNowWeather)
       this.AnimationAndDesign.SlideEnlargePadeIn(this.mainPage)
-      setTimeout(() => {
-        this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
-      },250)
+      this.resetPage()
     })
   }
 
+  resetPage() {
+    setTimeout(() => {
+      this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
+    },250)
+  }
+
   htmlInAPI(data, curMintemp, curMaxtemp) {
+    let dt = new Date()
     this.maxminTemp.innerHTML = `
-      <div>
-        <h1>${Math.round(Math.max(data.daily[0].temp.max, curMaxtemp))}</h1>
-        <i class="fas fa-temperature-high"></i>
-      </div>
-      <div>
-        <h1>${Math.round(Math.min(data.daily[0].temp.min, curMintemp))}</h1>
-        <i class="fas fa-temperature-high"></i>
+      <p>${Math.round(Math.max(data.daily[0].temp.max, curMaxtemp))}˚</P>
+      <p>/</P>
+      <p>${Math.round(Math.min(data.daily[0].temp.min, curMintemp))}˚</P>
+      <div id="updateTime">
+        <span>${dt.getFullYear()}년 ${dt.getMonth() + 1}월 ${dt.getDate()}일</span>
+        <span class="currentTime">방금전</span>
+        <i class="fas fa-sync-alt"></i>
       </div>
     `
 
+    let i = 0
+    this.currentTime = document.getElementsByClassName('currentTime')[0]
+    clearInterval(this.intervalTime)
+    this.intervalTime = setInterval(() => {
+      i++
+      let Time = ``
+      if (i < 60) {
+        Time = `${i}분 전`
+      } else if (59 < i && i < 61) {
+        Time = `1시간 전`
+      } else if (60 < i && i < 120) {
+        Time = `약 1시간 전`
+      } else {
+        Time = `한참 전`
+      }
+      this.currentTime.innerHTML = Time
+    }, 60000)
+
     this.windHumidity.innerHTML = `
       <div>
-        <i class="fas fa-wind"></i>
-        <p>${Math.round(data.daily[0].wind_speed)} m/s</p>
+        <i><img src="images/wind.svg" alt="windicon"></img></i>
+        <p>${Math.round(data.daily[0].wind_speed)} <span>m/s</span></p>
       </div>
       <div>
-        <i class="fas fa-umbrella"></i>
-        <p>${Math.round(data.daily[0].pop)} %</p>
+        <i><img src="images/umbrella.svg" alt="umbrellaicon"></img></i>
+        <p>${Math.round(data.daily[0].pop)} <span>%</span></p>
       </div>
       <div>
-        <i class="fas fa-tint"></i>
-        <p>${Math.round(data.daily[0].humidity)} %</p>
+        <i><img src="images/hum.svg" alt="humidity"></img></i>
+        <p>${Math.round(data.daily[0].humidity)} <span>%</span></p>
       </div>
     `
 

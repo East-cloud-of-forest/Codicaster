@@ -4,7 +4,7 @@ export class SubPageTimeTemp {
   constructor(data) {
     this.subPageTimeTemp = document.getElementById('subPageTimeTemp')
     this.timeTemp = document.getElementById('timeTemp')
-    this.CloseBtn = document.getElementById('CloseBtn')
+    this.CloseBtn = this.subPageTimeTemp.getElementsByClassName('CloseBtn')[0]
     this.hourTemp = document.getElementById('hourTemp')
     this.hourTempNext = document.getElementById('hourTempNext')
     this.hourTempPrev = document.getElementById('hourTempPrev')

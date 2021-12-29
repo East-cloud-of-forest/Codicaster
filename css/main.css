@@ -169,16 +169,6 @@ body {
   color: rgba(255,255,255,0.8);
 }
 
-#weatherInfo #temp div:nth-child(1) i {
-  position: absolute;
-  border: 0.5vh solid white;
-  width: 1.2vh;
-  height: 1.2vh;
-  border-radius: 50%;
-  top: 3vh;
-  right: -3vh;
-}
-
 /* 옷 정보 */
 #clothes {
   height: 50vh;
@@ -202,7 +192,8 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
   border-radius: 2vh;
   width: 100%;
 }
@@ -227,28 +218,13 @@ body {
   transition: 0.7s;
 }
 
-#subPageTimeTemp #TimeWeather {
-  width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
-  max-width: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-}
-
-#subPageTimeTemp #TimeWeather .space {
-  height: 3vh;
-  width: 100%;
-}
-
-#subPageTimeTemp #TimeWeather #CloseBtn {
+.CloseBtn {
   height: 8vh;
   background-color: rgba(255,255,255,0);
   border: none;
 }
 
-  #subPageTimeTemp #TimeWeather #CloseBtn::after {
+  .CloseBtn::after {
     content: '';
     width: 3vh;
     height: 3vh;
@@ -283,6 +259,22 @@ body {
       opacity: 0;
     }
   }
+
+.space {
+  height: 3vh;
+  width: 100%;
+}
+
+/* 서브페이지 시간별 날씨 */
+#subPageTimeTemp #TimeWeather {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
 
 #hourTempBox {
   height: 16vh;
@@ -463,6 +455,7 @@ body {
     margin: 1.5% 0;
     box-sizing: border-box;
     background-color: rgba(255,255,255,0.2);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
     border-radius: 2vh;
     color: white;
   }
@@ -543,9 +536,10 @@ body {
       text-align: right;
     }
 
-/* 현재 날씨 */
+/* 서브페이지 현재 날씨 */
 #subPageNowWeather {
-  padding: 3%;
+  padding: 0 3%;
+  color: white;
 }
 
 #subPageNowWeather #nowWeather {
@@ -554,60 +548,103 @@ body {
   max-width: 700px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   position: relative;
 }
 
-#subPageNowWeather #nowWeather .testX {
-  width: 100px;
-  height: 20px;
-  margin: 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
+.weatherInfo {
+  display: flex;
+  justify-content: space-between;
 }
 
 #subPageNowWeather #nowWeather #maxminTemp {
+  height: 30vh;
+  width: 70%;
+  border-radius: 2vh;
+  background-color: rgba(255,255,255,0.2);
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-  #subPageNowWeather #nowWeather #maxminTemp div {
-    display: flex;
-    position: relative;
+  #subPageNowWeather #nowWeather #maxminTemp p {
+    font-size: 10vh;
+    font-family: 'Outfit', sans-serif;
   }
 
-  #subPageNowWeather #nowWeather #maxminTemp h1 {
-    font-size: 100px;
-  }
-
-  #subPageNowWeather #nowWeather #maxminTemp i {
-    font-size: 35px;
-    position: absolute;
-    top: 10px;
-    right: -50px;
-  }
-
-    #subPageNowWeather #nowWeather #maxminTemp div:nth-child(1) h1{
-      color: red;
+    #subPageNowWeather #nowWeather #maxminTemp p:nth-child(1){
+      color: #ffd5ec;
+      position: relative;
+      bottom: 2vh;
     }
     
-    #subPageNowWeather #nowWeather #maxminTemp div:nth-child(2) h1{
-      color: blue;
+    #subPageNowWeather #nowWeather #maxminTemp p:nth-child(2){
+      color: rgba(255,255,255,0.5);
+    }
+
+    #subPageNowWeather #nowWeather #maxminTemp p:nth-child(3){
+      color: #d6f4ff;
+      position: relative;
+      top: 2vh;
+    }
+
+    #subPageNowWeather #nowWeather #maxminTemp div {
+      position: absolute;
+      top: 2vh;
+      left: 3vh;
+      font-size: 1.5vh;
+      opacity: 0.6;
+    }
+
+    #subPageNowWeather #nowWeather #maxminTemp div i {
+      margin-left: 0.5vh;
     }
 
   #subPageNowWeather #nowWeather #windHumidity {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+    border-radius: 2vh;
+    box-sizing: border-box;
+    padding: 0 4%;
+    background-color: rgba(255,255,255,0.2);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    width: 27%;
+    font-size: 2.5vh;
   }
 
     #subPageNowWeather #nowWeather #windHumidity div {
       display: flex;
       text-align: center;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 200;
     }
+
+    #subPageNowWeather #nowWeather #windHumidity p span {
+      font-size: 1.7vh;
+      color: rgb(255 255 255 / 50%);
+    }
+
+    #subPageNowWeather #nowWeather #windHumidity img {
+      width: 100%;
+      opacity: 0.8;
+      display: block;
+    }
+
+    #subPageNowWeather #nowWeather #windHumidity div:nth-child(3) img {
+      width: 80%;
+    }
+
     #subPageNowWeather #nowWeather #windHumidity i {
-      margin-right: 5px;
+      width: 4vh;
+      display: flex;
+      justify-content: center;
     }
 
   #subPageNowWeather #nowWeather #nowTimeTemp {

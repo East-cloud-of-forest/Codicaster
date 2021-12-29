@@ -12,8 +12,6 @@ class App {
 
     this.temp = document.getElementById('temp').getElementsByTagName('h1')[0]
     this.fillsLike = document.getElementById('temp').getElementsByTagName('span')[0]
-    this.tempIcon = document.getElementById('temp').getElementsByTagName('i')[0]
-    this.tempIcon.style.display = 'none'
 
     this.mainPage = document.getElementById('mainPage')
     this.background = document.getElementById('body')
@@ -75,9 +73,8 @@ class App {
 
 
 
-    this.temp.innerHTML = `${Math.round(data.main.temp)}`
+    this.temp.innerHTML = `${Math.round(data.main.temp)}˚`
     this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}˚`
-    this.tempIcon.style.display = 'block'
 
     // 시간별 날씨
     this.maxtemp = data.main.temp_max
@@ -108,6 +105,10 @@ class App {
       // 서브페이지
       this.SubPageTimeTemp = new SubPageTimeTemp(data)
       this.SubPageNowWeather.htmlInAPI(data, curMintemp, curMaxtemp)
+
+      this.updateTime = document.getElementById('updateTime')
+      this.updateTime.addEventListener('click', this.resetAPI.bind(this))
+      this.subPageNowWeatherHTML = document.getElementById('subPageNowWeather')
       })
     .then(this.padeIn())
     .catch((error) => console.log(('error', error)))
@@ -130,13 +131,14 @@ class App {
 
   clickCity(city) {
     this.cityChoice.style.display = 'none'
-    this.city = city.value
-    if (this.city == 'select') {
+    this.city = city
+    this.cityname = city.value
+    if (this.cityname == 'select') {
       return
     } else {
       this.padeOut()
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${this.cityname}&appid=b905f0c03119f5162e6063c34f4e9e05&units=metric&lang=kr`,
       )
       .then((response) => response.json())
       .then((data) => {
@@ -151,6 +153,7 @@ class App {
 
   // GPS를 이용한 API 호출
   gps() {
+    this.city = ''
     this.padeOut()
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -191,14 +194,14 @@ class App {
   }
 
   showErrorMsg() {
-    // this.location.innerText =
-    //   '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
-    // this.errorPage()
+    this.location.innerText =
+      '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
+    this.errorPage()
 
     // gps 안될때 테스트
-    let a = {1 : 'busan'}
-    a.value = 'busan'
-    this.clickCity(a)
+    // let a = {1 : 'busan'}
+    // a.value = 'busan'
+    // this.clickCity(a)
 
     this.padeIn()
   }
@@ -236,6 +239,17 @@ class App {
     let vh = window.innerHeight * 0.01
 
     document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }
+
+  // 새로고침
+  resetAPI() {
+    if (this.city == '') {
+      this.gps()
+    } else {
+      this.clickCity(this.city)
+    }
+    this.AnimationAndDesign.SlideEnlargePadeOut(this.subPageNowWeatherHTML)
+    this.SubPageNowWeather.resetPage()
   }
 }
 

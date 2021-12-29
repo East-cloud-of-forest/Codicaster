@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;900&family=Outfit:wght@100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700;900&family=Outfit:wght@100;200&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/main.css">
 
@@ -60,7 +60,6 @@
         <article id="temp">
           <div>
             <h1></h1>
-            <i></i>
           </div>
           <div>
             <span></span>
@@ -114,7 +113,7 @@
           <button id="hourTempNext"></button>
         </div>
         <article id="weekTemp"></article>
-        <button id="CloseBtn"></button>
+        <button class="CloseBtn"></button>
       </section>
     </div>
 
@@ -122,12 +121,15 @@
     <!-- 현재 날씨 정보 -->
     <div id="subPageNowWeather" class='standby'>
       <section id="nowWeather">
-        <button class="testX">x</button>
-        <article id="maxminTemp"></article>
-        <article id="windHumidity"></article>
+        <div class="space"></div>
+        <div class="weatherInfo">
+          <article id="maxminTemp"></article>
+          <article id="windHumidity"></article>
+        </div>
         <article id="nowTimeTemp"></article>
         <article id="optionInfo"></article>
         <article id="sunTime"></article>
+        <button class="CloseBtn"></button>
       </section>
     </div>
 
