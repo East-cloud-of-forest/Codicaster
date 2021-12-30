@@ -111,13 +111,17 @@ export class SubPageTimeTemp {
       let hour = `<p>${(`00` + time.getHours()).slice(-2)} 시</p>`
       let temp = Math.round(data.hourly[i].temp)
       if (time.getHours() == 0) {
-        if (time.getDate() == new Date().getDate()) {
+        function getDateFromToday(j) {
+          let date = new Date().valueOf() + ((24*60*60*1000) * j)
+          return new Date(date).getDate()
+        }
+        if (time.getDate() == getDateFromToday(0)) {
           hour = `<p class="box">오늘</P>`
         }
-        if (time.getDate() == new Date().getDate() + 1) {
+        if (time.getDate() == getDateFromToday(1)) {
           hour = `<p class="box">내일</P>`
         }
-        if (time.getDate() == new Date().getDate() + 2) {
+        if (time.getDate() == getDateFromToday(2)) {
           hour = `<p class="box">모레</P>`
         }
       }
