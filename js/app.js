@@ -63,7 +63,7 @@ class App {
 
     // 아이콘 및 배경 테스트
 
-    // let test = '50d'
+    // let test = '10d'
     // let iconsorce = this.AnimationAndDesign.icon(test)
     // this.icon.src = `images/${iconsorce[0]}`
     // this.icon.style.width = iconsorce[1]
@@ -97,10 +97,10 @@ class App {
       this.day = document.getElementsByClassName('day')[0]
       this.night = document.getElementsByClassName('night')[0]
 
-      this.morn.innerText = Math.round(data.daily[0].temp.morn)
-      this.eve.innerText = Math.round(data.daily[0].temp.eve)
-      this.day.innerText = Math.round(data.daily[0].temp.day)
-      this.night.innerText = Math.round(data.daily[0].temp.night)
+      this.morn.innerText = `${Math.round(data.daily[0].temp.morn)}˚`
+      this.eve.innerText = `${Math.round(data.daily[0].temp.eve)}˚`
+      this.day.innerText = `${Math.round(data.daily[0].temp.day)}˚`
+      this.night.innerText = `${Math.round(data.daily[0].temp.night)}˚`
 
       // 서브페이지
       this.SubPageTimeTemp = new SubPageTimeTemp(data)

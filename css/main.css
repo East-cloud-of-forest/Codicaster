@@ -638,7 +638,7 @@ body {
     }
 
     #subPageNowWeather #nowWeather #windHumidity div:nth-child(3) img {
-      width: 80%;
+      width: 70%;
     }
 
     #subPageNowWeather #nowWeather #windHumidity i {
@@ -658,9 +658,165 @@ body {
     justify-content: space-around;
   }
 
-  #subPageNowWeather #nowWeather #optionInfo > div {
-    text-align: center;
+  #subPageNowWeather #nowWeather #optionInfo {
+    display: flex;
+    position: relative;
+    justify-content: space-between
   }
+
+  #subPageNowWeather #nowWeather #optionInfo article {
+    text-align: center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background:rgba(255,255,255,0.2);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+    border-radius: 2vh;
+    height: 20vh;
+    position: relative;
+    width: 100%;
+  }
+
+    #subPageNowWeather #nowWeather #optionInfo article::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+      #clouds::before {
+        background: url('../images/back_cloud.svg') no-repeat left bottom;
+        background-size: 37vh;
+        opacity: 0.2;
+      }
+
+      #uvi::before, #tomorrowUvi::before {
+        background: url('../images/back_uvi.svg') no-repeat left top;
+        background-size: 28vh;
+        opacity: 0.3;
+      }
+
+  #dobbleBtn {
+    position: absolute;
+    display: none;
+    background: none;
+    border: none;
+    right: 2%;
+    top: 5%;
+    z-index: 5;
+  }
+
+  #dobbleBtn div {
+    width: 2vh;
+    height: 1.5vh;
+    border: 2px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.3);
+    border-radius: 0.5vh;
+  }
+  
+    #dobbleBtn div:nth-child(1) {
+      margin-right: 2px;
+    }
+  
+  #subPageNowWeather #nowWeather #optionInfo article> div {
+    z-index: 3;
+    display: flex;
+    box-sizing: border-box;
+  }
+
+    #subPageNowWeather #nowWeather #optionInfo article p {
+      font-size: 1.6vh;
+      font-family: 'Roboto', sans-serif;
+      color: rgba(255,255,255,0.7)
+    }
+
+      /* 구름양 */
+      #clouds div {
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 80%;
+        height: 100%;
+      }
+
+      #clouds p:nth-child(1) span {
+        font-size: 2vh;
+        color: white;
+      }
+
+      #clouds p:nth-child(1) span:nth-child(3) {
+        font-size: 6vh;
+        font-family: 'Outfit', sans-serif;
+        color: white;
+      }
+
+      #clouds p:nth-child(1) span:nth-child(4) {
+        font-size: 3.5vh;
+      }
+    
+      #clouds p:nth-child(2) {
+        color: white !important;
+        font-size: 1.8vh !important;
+        line-height: 90%;
+        position: relative;
+        top: -5px;
+      }
+
+      #clouds p:nth-child(2) span {
+        font-size: 1.4vh;
+        color: rgba(255,255,255,0.6);
+        position: relative;
+        top: 10px;
+      }
+
+      /* 자외선 지수 */
+      #uvi, #tomorrowUvi {
+        flex-direction: column;
+      }
+
+      #uvi> div, #tomorrowUvi div{
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        height: 50%;
+      }
+
+      #uvi p, #tomorrowUvi p {
+        text-align: right;
+      }
+
+      #uvi div> span, #tomorrowUvi div> span {
+        padding-left: 4vh;
+        display: flex;
+        align-items: center;
+        font-family: 'Outfit', sans-serif;
+        color: white;
+        position: relative;
+      }
+
+      #uvi div:nth-child(1)> span{
+        font-size: 6vh;
+      }
+
+      #uvi div:nth-child(2)> span {
+        font-size: 3vh;
+      }
+
+        #uvi div span span, #tomorrowUvi div span span {
+          font-size: 1.4vh;
+          position: absolute;
+          right: -1vh;
+          padding: 0.5vh;
+          transform: translateX(100%);
+          border-radius: 0.5vh;
+          color: rgba(255,255,255, 0.7);
+        }
+      
+      #tomorrowUvi div> span {
+        font-size: 5vh;
+      }
 
   #subPageNowWeather #nowWeather #optionInfo .hourDrop {
     display: flex;
