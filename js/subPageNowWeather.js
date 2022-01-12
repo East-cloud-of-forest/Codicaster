@@ -12,6 +12,7 @@ export class SubPageNowWeather {
     this.clouds = document.getElementById('clouds')
     this.uvi = document.getElementById('uvi')
     this.tomorrowUvi = document.getElementById('tomorrowUvi')
+    this.rainChart = document.getElementById('rainChart')
     this.dobbleBtn = document.getElementById('dobbleBtn')
     this.sunTime = document.getElementById('sunTime')
     this.mainPage = document.getElementById('mainPage')
@@ -34,7 +35,9 @@ export class SubPageNowWeather {
   resetPage() {
     setTimeout(() => {
       this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
-      this.optionReset(this.mainOption)
+      if (this.weatherState == 'clear') {
+        this.optionReset(this.mainOption)
+      }
     },400)
   }
 
@@ -173,6 +176,63 @@ export class SubPageNowWeather {
     tomorrowUviText.innerHTML = getUviLevelInfo(data.daily[1].uvi)[0]
     tomorrowUviText.style.background = getUviLevelInfo(data.daily[1].uvi)[1]
 
+    // 비
+    let currentRain = 0
+    let timeRain = 0
+    let timeRainDiv = []
+
+    if (data.current.rain) {
+      currentRain = Object.values(data.current.rain)[0]
+      if (currentRain <= 1) {
+        currentRain = '0 ~ 1'
+      }
+    }
+
+    for (let i = 0; i < 8; ++i) {
+      let time = new Date(data.hourly[i].dt * 1000)
+      let hour = `${(`00` + time.getHours()).slice(-2)} 시`
+
+      if (time.getHours() == 0) {
+        function getDateFromToday(j) {
+          let date = new Date().valueOf() + ((24*60*60*1000) * j)
+          return new Date(date).getDate()
+        }
+        if (time.getDate() == getDateFromToday(0)) {
+          hour = `<p class="box">오늘</P>`
+        }
+        if (time.getDate() == getDateFromToday(1)) {
+          hour = `<p class="box">내일</P>`
+        }
+      }
+
+      if (data.hourly[i].rain) {
+        timeRain = Object.values(data.hourly[i].rain)[0]
+        if (0 < timeRain <= 1) {
+          timeRain = '~1'
+        }
+      } else {
+        timeRain = 0
+      }
+
+      if (timeRain > 0) {
+        timeRainDiv.push(`
+          <div>
+            <div class="timeRain rain_full">${timeRain}</div>
+            <p>${hour}</p>
+          </div>`)
+      } else {
+        timeRainDiv.push(`
+        <div>
+          <div class="timeRain">${timeRain}</div>
+          <p>${hour}</p>
+        </div>`)
+      }
+    }
+
+    this.rainChart.innerHTML = `
+      <p>1시간동안 <span>${currentRain}</span> mm</p>
+      <div>${timeRainDiv.join('')}</div>
+    `
 
     // 일출 일몰
     let sunrise = data.daily[0].sunrise * 1000
@@ -224,13 +284,13 @@ export class SubPageNowWeather {
         }
       })
     }
-    console.log(this.optionInfo.childNodes)
 
     switch (weatherState) {
       case '01' :
       case '02' :
       case '03' :
       case '04' :
+        this.weatherState = 'clear'
         this.dobbleBtn.style.display = 'flex'
         if (skyState == 'd') {
           this.mainOption = this.uvi
@@ -241,6 +301,17 @@ export class SubPageNowWeather {
           this.clouds.style.display = 'flex'
           clearTowShowOption(this.tomorrowUvi, this.clouds, this.dobbleBtn)
         }
+        break
+      case '09' :
+      case '10' :
+      case '11' :
+        this.weatherState = 'rain'
+        this.rainChart.style.display = 'flex'
+        break
+      case '13' :
+        break
+      case '50' :
+        break
     }
   }
 
@@ -263,42 +334,6 @@ export class SubPageNowWeather {
   }
 
   currentWeather(data) {
-    
-    let currentRain = 0
-    let timeRain = 0
-    let timeRainDiv = []
-    if (data.current.rain) {
-      currentRain = Object.values(data.current.rain)[0]
-      if (currentRain <= 1) {
-        currentRain = '0~1'
-      }
-    }
-    for (let i = 0; i < 8; ++i) {
-      let time = new Date(data.hourly[i].dt * 1000)
-      let hour = (`00` + time.getHours()).slice(-2)
-      if (data.hourly[i].rain) {
-        timeRain = Object.values(data.hourly[i].rain)[0]
-        if (0 < timeRain <= 1) {
-          timeRain = '0~1'
-        }
-      } else {
-        timeRain = 0
-      }
-      timeRainDiv.push(`
-          <div>
-            <p>${data.hourly[i].humidity}
-            <p>${timeRain}</p>
-            <p>${hour} 시</p>
-          </div>
-        `)
-    }
-    let rainSnow = `
-      <div class="rainSnow">
-        <p>${currentRain}</p>
-        <div class="hourDrop">${timeRainDiv.join('')}</div>
-      </div>
-    `
-
     // 가시성 100 밑으로 내려가면 미터로 표시
     let mist = `
       <div>
