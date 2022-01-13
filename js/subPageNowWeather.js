@@ -12,8 +12,9 @@ export class SubPageNowWeather {
     this.clouds = document.getElementById('clouds')
     this.uvi = document.getElementById('uvi')
     this.tomorrowUvi = document.getElementById('tomorrowUvi')
-    this.rainChart = document.getElementById('rainChart')
     this.dobbleBtn = document.getElementById('dobbleBtn')
+    this.rainChart = document.getElementById('rainChart')
+    this.mist = document.getElementById('mist')
     this.sunTime = document.getElementById('sunTime')
     this.mainPage = document.getElementById('mainPage')
     this.mainOption = ''
@@ -92,8 +93,9 @@ export class SubPageNowWeather {
     // 옵션 정보 창
     // 날씨에 따라 옵션 변경 로직
     let skyState = data.current.weather[0].icon.slice(2)
+    // let weatherState = data.current.weather[0].icon.slice(0,2)
     // let skyState = 'd'
-    let weatherState = data.current.weather[0].icon.slice(0,2)
+    let weatherState = '13'
     this.optionInfoHtml(skyState, weatherState)
 
     // 구름양
@@ -150,39 +152,32 @@ export class SubPageNowWeather {
     this.uvi.innerHTML = `
       <div>
         <p>현재</br>자외선 지수</p>
-        <span>${data.current.uvi}<span></span></span>
+        <span>${data.current.uvi}<span>${getUviLevelInfo(data.current.uvi)[0]}</span></span>
       </div>
       <div>
         <p>오늘 최대</br>자외선 지수</p>
-        <span>${data.daily[0].uvi}<span></span></span>
+        <span>${data.daily[0].uvi}<span>${getUviLevelInfo(data.daily[0].uvi)[0]}</span></span>
       </div>
-      <h4></h4>
+      <h4>${getUviLevelInfo(data.daily[0].uvi)[2]}</h4>
     `
 
     let uviNum = this.uvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
     let uviNum2 = this.uvi.getElementsByTagName('div')[1].getElementsByTagName('span')[1]
-    let uviText = this.uvi.getElementsByTagName('h4')[0]
-    uviNum.innerHTML = getUviLevelInfo(data.current.uvi)[0]
-    uviNum2.innerHTML = getUviLevelInfo(data.daily[0].uvi)[0]
     uviNum.style.background = getUviLevelInfo(data.current.uvi)[1]
     uviNum2.style.background = getUviLevelInfo(data.daily[0].uvi)[1]
-    uviText.innerHTML = getUviLevelInfo(data.daily[0].uvi)[2]
 
     // 내일 자외선 지수
     this.tomorrowUvi.innerHTML = `
       <div>
         <p>내일 최대</br>자외선 지수</p>
-        <span>${data.daily[1].uvi}<span></span></span>
+        <span>${data.daily[1].uvi}<span>${getUviLevelInfo(data.daily[1].uvi)[0]}</span></span>
       </div>
-      <h4></h4>
+      <h4>${getUviLevelInfo(data.daily[1].uvi)[2]}</h4>
     `
     let tomorrowUviNum = this.tomorrowUvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
-    let tomorrowUviText = this.tomorrowUvi.getElementsByTagName('h4')[0]
-    tomorrowUviNum.innerHTML = getUviLevelInfo(data.daily[1].uvi)[0]
     tomorrowUviNum.style.background = getUviLevelInfo(data.daily[1].uvi)[1]
-    tomorrowUviText.innerHTML = getUviLevelInfo(data.daily[1].uvi)[2]
 
-    // 비
+    // 강수량
     let currentRain = 0
     let timeRain = 0
     let timeRainDiv = []
@@ -239,6 +234,39 @@ export class SubPageNowWeather {
       <p>1시간동안 <span>${currentRain}</span> mm</p>
       <div>${timeRainDiv.join('')}</div>
     `
+
+    // 가시거리
+    let visibility = data.current.visibility
+    let visibilityNum = ''
+    let visibilityText = ''
+    if (visibility == 10000) {
+      visibility = visibility / 1000
+      visibilityNum = `<span>${visibility}</span><span> km</span>`
+    } else if (9999 >= visibility && visibility >= 1000) {
+      visibility = Math.round((visibility / 1000 + Number.EPSILON) * 10) / 10
+      visibilityNum = `<span>${visibility}</span><span> km</span>`
+    } else if (999 >= visibility) {
+      visibilityNum = `<span>${visibility}</span><span> m</span>`
+      visibilityText = `<h4>가시거리가 짧아요. 좋은 풍경은 못보겠어요.</h4>`
+      if (200 >= visibility && visibility >= 151) {
+        visibilityText = `<h4>안개가 많이 꼈어요. 외출 하신다면 주의가 필요해요.</h4>`
+      } else if (150 >= visibility && visibility >= 121) {
+        visibilityText = `<h4>안개가 많아요 ! 운전을 하신다면 감속과 주의가 필요해요.</h4>`
+      } else if (120 >= visibility && visibility >= 61) {
+        visibilityText = `<h4>짙은 안개가 껴 있어요 ! 외출이나 운전을 하신다면 많은 주의가 필요해요.</h4>`
+      } else if (60 >= visibility) {
+        visibilityText = `<h4>한치 앞도 제대로 보이지 않아요 ! 오늘은 집에서 쉬는게 어떨까요?</h4>`
+      }
+    }
+
+    this.mist.innerHTML = `
+      <div>
+        <p>현재 가시거리 ${visibilityNum}</p>
+        ${visibilityText}
+      </div>
+    `
+
+    // 적설량
 
     // 일출 일몰
     let sunrise = data.daily[0].sunrise * 1000
@@ -315,6 +343,8 @@ export class SubPageNowWeather {
         this.rainChart.style.display = 'flex'
         break
       case '13' :
+        this.weatherState = 'mist'
+        this.mist.style.display = 'flex'
         break
       case '50' :
         break
@@ -333,8 +363,10 @@ export class SubPageNowWeather {
     switch (main) {
       case this.uvi :
         main.getElementsByTagName('h4')[0].style.display = 'block'
+        break
       case this.clouds :
         main.getElementsByTagName('p')[1].style.display = 'block'
+        break
     }
   }
 
