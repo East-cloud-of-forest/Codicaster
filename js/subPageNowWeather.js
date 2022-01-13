@@ -135,15 +135,15 @@ export class SubPageNowWeather {
     // 자외선 지수
     function getUviLevelInfo(i) {
       if (2.99 >= i) {
-        return ['낮음', 'rgba(62, 168, 46, 0.4)']
+        return ['낮음', 'rgba(62, 168, 46, 0.4)', '외출할 때 자외선 차단제를 얇게 발라주면 피부가 좋아할 거예요.']
       } else if (i >= 3 && i <= 5.99) {
-        return ['보통', 'rgba(255, 245, 0, 0.4)']
+        return ['보통', 'rgba(255, 245, 0, 0.4)', '자외선 차단제를 꼼꼼히 발라주세요. 모자와 선글라스를 쓰셔도 좋아요.']
       } else if (i >= 6 && i <= 7.99) {
-        return ['높음', 'rgba(240, 140, 0, 0.4)']
+        return ['높음', 'rgba(240, 140, 0, 0.4)', '해가 뜨거워요! 자외선 차단제를 챙겨 정기적으로 발라주세요.']
       } else if (i >= 8 && i <= 10.99) {
-        return ['매우높음', 'rgba(228, 51, 15, 0.4)']
+        return ['매우높음', 'rgba(228, 51, 15, 0.4)', '완전 내리쬐어요 ! 자외선 차단제를 챙겨 정기적으로 바르고 해를 피해야 해요.']
       } else if (i >= 11) {
-        return ['위험', 'rgba(180, 103, 161, 0.4)']
+        return ['위험', 'rgba(180, 103, 161, 0.4)', '밖은 위험해 ! 가능한 실내에 있어야 해요. 자외선 차단제는 필수 !']
       }
     }
 
@@ -156,14 +156,17 @@ export class SubPageNowWeather {
         <p>오늘 최대</br>자외선 지수</p>
         <span>${data.daily[0].uvi}<span></span></span>
       </div>
+      <h4></h4>
     `
 
-    let uviText = this.uvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
-    let uviText2 = this.uvi.getElementsByTagName('div')[1].getElementsByTagName('span')[1]
-    uviText.innerHTML = getUviLevelInfo(data.current.uvi)[0]
-    uviText2.innerHTML = getUviLevelInfo(data.daily[0].uvi)[0]
-    uviText.style.background = getUviLevelInfo(data.current.uvi)[1]
-    uviText2.style.background = getUviLevelInfo(data.daily[0].uvi)[1]
+    let uviNum = this.uvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
+    let uviNum2 = this.uvi.getElementsByTagName('div')[1].getElementsByTagName('span')[1]
+    let uviText = this.uvi.getElementsByTagName('h4')[0]
+    uviNum.innerHTML = getUviLevelInfo(data.current.uvi)[0]
+    uviNum2.innerHTML = getUviLevelInfo(data.daily[0].uvi)[0]
+    uviNum.style.background = getUviLevelInfo(data.current.uvi)[1]
+    uviNum2.style.background = getUviLevelInfo(data.daily[0].uvi)[1]
+    uviText.innerHTML = getUviLevelInfo(data.daily[0].uvi)[2]
 
     // 내일 자외선 지수
     this.tomorrowUvi.innerHTML = `
@@ -171,10 +174,13 @@ export class SubPageNowWeather {
         <p>내일 최대</br>자외선 지수</p>
         <span>${data.daily[1].uvi}<span></span></span>
       </div>
+      <h4></h4>
     `
-    let tomorrowUviText = this.tomorrowUvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
-    tomorrowUviText.innerHTML = getUviLevelInfo(data.daily[1].uvi)[0]
-    tomorrowUviText.style.background = getUviLevelInfo(data.daily[1].uvi)[1]
+    let tomorrowUviNum = this.tomorrowUvi.getElementsByTagName('div')[0].getElementsByTagName('span')[1]
+    let tomorrowUviText = this.tomorrowUvi.getElementsByTagName('h4')[0]
+    tomorrowUviNum.innerHTML = getUviLevelInfo(data.daily[1].uvi)[0]
+    tomorrowUviNum.style.background = getUviLevelInfo(data.daily[1].uvi)[1]
+    tomorrowUviText.innerHTML = getUviLevelInfo(data.daily[1].uvi)[2]
 
     // 비
     let currentRain = 0
@@ -262,8 +268,8 @@ export class SubPageNowWeather {
         cloud.style.display = 'flex'
         cloud.style.width = '48.5%'
         dobbleBtn.style.display = 'none'
-        let cloudText = cloud.getElementsByTagName('p')[1]
-        cloudText.style.display = 'none'
+        cloud.getElementsByTagName('p')[1].style.display = 'none'
+        uvi.getElementsByTagName('h4')[0].style.display = 'none'
       })
 
       uvi.addEventListener('click',() => {
@@ -271,6 +277,7 @@ export class SubPageNowWeather {
           uvi.style.width = '100%'
           cloud.style.display = 'none'
           dobbleBtn.style.display = 'flex'
+          uvi.getElementsByTagName('h4')[0].style.display = 'block'
         }
       })
 
@@ -279,8 +286,7 @@ export class SubPageNowWeather {
           cloud.style.width = '100%'
           uvi.style.display = 'none'
           dobbleBtn.style.display = 'flex'
-          let cloudText = cloud.getElementsByTagName('p')[1]
-          cloudText.style.display = 'block'
+          cloud.getElementsByTagName('p')[1].style.display = 'block'
         }
       })
     }
@@ -326,10 +332,9 @@ export class SubPageNowWeather {
     main.style.width = '100%'
     switch (main) {
       case this.uvi :
-        return
+        main.getElementsByTagName('h4')[0].style.display = 'block'
       case this.clouds :
-        let cloudText = main.getElementsByTagName('p')[1]
-        cloudText.style.display = 'block'
+        main.getElementsByTagName('p')[1].style.display = 'block'
     }
   }
 

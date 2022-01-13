@@ -774,13 +774,20 @@ body {
       /* 자외선 지수 */
       #uvi, #tomorrowUvi {
         flex-direction: column;
+        justify-content: space-evenly !important;
+      }
+
+      #uvi h4, #tomorrowUvi h4 {
+        font-weight: 100;
+        font-size: 1.6vh;
+        line-height: 90%;
+        color: rgba(255,255,255,0.9);
       }
 
       #uvi> div, #tomorrowUvi div{
         align-items: center;
         justify-content: center;
         width: 80%;
-        height: 50%;
       }
 
       #uvi p, #tomorrowUvi p {
@@ -807,7 +814,7 @@ body {
         #uvi div span span, #tomorrowUvi div span span {
           font-size: 1.4vh;
           position: absolute;
-          right: -1vh;
+          right: -0.5vh;
           padding: 0.5vh;
           transform: translateX(100%);
           border-radius: 0.5vh;
