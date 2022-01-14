@@ -52,23 +52,23 @@ class App {
     console.log(data)
     this.resetErrorPage()
     //  메인페이지
-    let iconsorce = this.AnimationAndDesign.icon(data.weather[0].icon)
-    this.icon.src = `images/${iconsorce[0]}`
-    this.icon.style.width = iconsorce[1]
-    this.icon.style.height = iconsorce[1]
-    this.background.style = this.AnimationAndDesign.backgroundcolor(data.weather[0].icon)
+    // let iconsorce = this.AnimationAndDesign.icon(data.weather[0].icon)
+    // this.icon.src = `images/${iconsorce[0]}`
+    // this.icon.style.width = iconsorce[1]
+    // this.icon.style.height = iconsorce[1]
+    // this.background.style = this.AnimationAndDesign.backgroundcolor(data.weather[0].icon)
 
 
 
 
     // 아이콘 및 배경 테스트
 
-    // let test = '10d'
-    // let iconsorce = this.AnimationAndDesign.icon(test)
-    // this.icon.src = `images/${iconsorce[0]}`
-    // this.icon.style.width = iconsorce[1]
-    // this.icon.style.height = iconsorce[1]
-    // this.background.style = this.AnimationAndDesign.backgroundcolor(test)
+    let test = '13d'
+    let iconsorce = this.AnimationAndDesign.icon(test)
+    this.icon.src = `images/${iconsorce[0]}`
+    this.icon.style.width = iconsorce[1]
+    this.icon.style.height = iconsorce[1]
+    this.background.style = this.AnimationAndDesign.backgroundcolor(test)
 
 
 

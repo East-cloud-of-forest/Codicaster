@@ -685,6 +685,7 @@ body {
       top: 0;
       left: 0;
       z-index: 2;
+      border-radius: 2vh;
     }
 
       #clouds::before {
@@ -696,6 +697,24 @@ body {
       #uvi::before, #tomorrowUvi::before {
         background: url('../images/back_uvi.svg') no-repeat left top;
         background-size: 28vh;
+        opacity: 0.3;
+      }
+
+      #mist::before {
+        background: url('../images/back_mist.svg') no-repeat left top;
+        background-size: 98%;
+        opacity: 0.3;
+      }
+
+      #snowChart::before{
+        background: url('../images/back_snow.svg') no-repeat left top;
+        background-size: 20vh;
+        opacity: 0.2;
+      }
+
+      #rainChart::before{
+        background: url('../images/back_rain.svg') no-repeat left bottom;
+        background-size: 25vh;
         opacity: 0.3;
       }
 
@@ -825,13 +844,13 @@ body {
         font-size: 5vh;
       }
 
-      /* 비 차트 */
-      #rainChart{
+      /* 비 눈 차트 */
+      #rainChart, #snowChart{
         flex-direction: column;
         justify-content: space-around !important;
       }
 
-      #rainChart span {
+      #rainChart span, #snowChart span {
         font-size: 5vh;
         font-weight: 100;
         font-family: 'Outfit', sans-serif;
@@ -839,17 +858,17 @@ body {
         color: white;
       }
 
-      #rainChart> div {
+      #rainChart> div, #snowChart> div {
         justify-content: space-between;
         width: 100%;
         padding: 0 3%;
       }
 
-      #rainChart> div> div {
+      #rainChart> div> div, #snowChart> div> div {
         width: 12%;
       }
 
-      #rainChart .timeRain {
+      #rainChart .timeRain, #snowChart .timeSnow {
         background-color: rgba(255,255,255, 0.2);
         height: 5vh;
         box-sizing: border-box;
@@ -860,18 +879,29 @@ body {
         align-items: center;
       }
 
-        #rainChart .timeRain::before {
+        #rainChart .timeRain::before, #snowChart .timeSnow::before{
           content: '';
           position: absolute;
           left: 0;
           bottom: 0%;
           width: 100%;
           height: 3px;
+        }
+
+        #rainChart .timeRain::before {
           background-color: #d6f4ff;
+        }
+
+        #snowChart .timeSnow::before {
+          background-color: #ced6dd;
         }
       
       .rain_full {
         background-color: rgba(147, 177, 255, 0.6) !important;
+      }
+
+      .snow_full {
+        background-color: rgba(200, 205, 219, 0.6) !important;
       }
 
       /* 가시거리 */

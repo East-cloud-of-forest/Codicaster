@@ -15,6 +15,7 @@ export class SubPageNowWeather {
     this.dobbleBtn = document.getElementById('dobbleBtn')
     this.rainChart = document.getElementById('rainChart')
     this.mist = document.getElementById('mist')
+    this.snowChart = document.getElementById('snowChart')
     this.sunTime = document.getElementById('sunTime')
     this.mainPage = document.getElementById('mainPage')
     this.mainOption = ''
@@ -267,6 +268,62 @@ export class SubPageNowWeather {
     `
 
     // 적설량
+    let currentSnow = 0
+    let timeSnow = 0
+    let timeSnowDiv = []
+
+    if (data.current.snow) {
+      currentSnow = Object.values(data.current.snow)[0]
+      if (currentSnow <= 1) {
+        currentSnow = '0 ~ 1'
+      }
+    }
+
+    for (let i = 0; i < 8; ++i) {
+      let time = new Date(data.hourly[i].dt * 1000)
+      let hour = `${(`00` + time.getHours()).slice(-2)} 시`
+
+      if (time.getHours() == 0) {
+        function getDateFromToday(j) {
+          let date = new Date().valueOf() + ((24*60*60*1000) * j)
+          return new Date(date).getDate()
+        }
+        if (time.getDate() == getDateFromToday(0)) {
+          hour = `<p class="box">오늘</P>`
+        }
+        if (time.getDate() == getDateFromToday(1)) {
+          hour = `<p class="box">내일</P>`
+        }
+      }
+
+      if (data.hourly[i].snow) {
+        timeSnow = Object.values(data.hourly[i].snow)[0]
+        if (0 < timeSnow <= 1) {
+          timeSnow = '~1'
+        }
+      } else {
+        timeSnow = 0
+      }
+
+      if (timeSnow > 0) {
+        timeSnowDiv.push(`
+          <div>
+            <div class="timeSnow snow_full">${timeSnow}</div>
+            <p>${hour}</p>
+          </div>`)
+      } else {
+        timeSnowDiv.push(`
+        <div>
+          <div class="timeSnow">${timeSnow}</div>
+          <p>${hour}</p>
+        </div>`)
+      }
+    }
+
+    this.snowChart.innerHTML = `
+      <p>1시간동안 <span>${currentSnow}</span> mm</p>
+      <div>${timeSnowDiv.join('')}</div>
+    `
 
     // 일출 일몰
     let sunrise = data.daily[0].sunrise * 1000
@@ -343,10 +400,12 @@ export class SubPageNowWeather {
         this.rainChart.style.display = 'flex'
         break
       case '13' :
-        this.weatherState = 'mist'
-        this.mist.style.display = 'flex'
+        this.weatherState = 'snow'
+        this.snowChart.style.display = 'flex'
         break
       case '50' :
+        this.weatherState = 'mist'
+        this.mist.style.display = 'flex'
         break
     }
   }
@@ -367,19 +426,6 @@ export class SubPageNowWeather {
       case this.clouds :
         main.getElementsByTagName('p')[1].style.display = 'block'
         break
-    }
-  }
-
-  currentWeather(data) {
-    // 가시성 100 밑으로 내려가면 미터로 표시
-    let mist = `
-      <div>
-        <p>${data.current.visibility / 1000} km</p>
-      </div>
-    `
-    this.aaa = [rainSnow, mist]
-    if (1 == 1) {
-      return this.aaa.join('')
     }
   }
 }
