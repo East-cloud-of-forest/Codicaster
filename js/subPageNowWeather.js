@@ -39,6 +39,12 @@ export class SubPageNowWeather {
       this.nowTimeTemp.removeChild(this.nowTimeTemp.firstChild)
       if (this.weatherState == 'clear') {
         this.optionReset(this.mainOption)
+      } else if (this.weatherState == 'snow') {
+        this.snowChart.style.display = 'flex'
+        this.mist.style.display = 'none'
+      } else if (this.weatherState == 'rain') {
+        this.rainChart.style.display = 'flex'
+        this.mist.style.display = 'none'
       }
     },400)
   }
@@ -92,12 +98,11 @@ export class SubPageNowWeather {
     `
 
     // 옵션 정보 창
-    // 날씨에 따라 옵션 변경 로직
     let skyState = data.current.weather[0].icon.slice(2)
-    // let weatherState = data.current.weather[0].icon.slice(0,2)
+    let weatherState = data.current.weather[0].icon.slice(0,2)
     // let skyState = 'd'
-    let weatherState = '13'
-    this.optionInfoHtml(skyState, weatherState)
+    // let weatherState = '09'
+    let visibility = data.current.visibility
 
     // 구름양
     function getCloudText(i) {
@@ -209,14 +214,14 @@ export class SubPageNowWeather {
 
       if (data.hourly[i].rain) {
         timeRain = Object.values(data.hourly[i].rain)[0]
-        if (0 < timeRain <= 1) {
-          timeRain = '~1'
-        }
       } else {
         timeRain = 0
       }
 
       if (timeRain > 0) {
+        if (0 < timeRain <= 1) {
+          timeRain = '~1'
+        }
         timeRainDiv.push(`
           <div>
             <div class="timeRain rain_full">${timeRain}</div>
@@ -234,18 +239,16 @@ export class SubPageNowWeather {
     this.rainChart.innerHTML = `
       <p>1시간동안 <span>${currentRain}</span> mm</p>
       <div>${timeRainDiv.join('')}</div>
+      <i class="misticon"></i>
     `
 
     // 가시거리
-    let visibility = data.current.visibility
     let visibilityNum = ''
     let visibilityText = ''
     if (visibility == 10000) {
-      visibility = visibility / 1000
-      visibilityNum = `<span>${visibility}</span><span> km</span>`
+      visibilityNum = `<span>${visibility / 1000}</span><span> km</span>`
     } else if (9999 >= visibility && visibility >= 1000) {
-      visibility = Math.round((visibility / 1000 + Number.EPSILON) * 10) / 10
-      visibilityNum = `<span>${visibility}</span><span> km</span>`
+      visibilityNum = `<span>${Math.round((visibility / 1000 + Number.EPSILON) * 10) / 10}</span><span> km</span>`
     } else if (999 >= visibility) {
       visibilityNum = `<span>${visibility}</span><span> m</span>`
       visibilityText = `<h4>가시거리가 짧아요. 좋은 풍경은 못보겠어요.</h4>`
@@ -265,6 +268,7 @@ export class SubPageNowWeather {
         <p>현재 가시거리 ${visibilityNum}</p>
         ${visibilityText}
       </div>
+      <i class="backicon"></i>
     `
 
     // 적설량
@@ -298,14 +302,14 @@ export class SubPageNowWeather {
 
       if (data.hourly[i].snow) {
         timeSnow = Object.values(data.hourly[i].snow)[0]
-        if (0 < timeSnow <= 1) {
-          timeSnow = '~1'
-        }
       } else {
         timeSnow = 0
       }
 
       if (timeSnow > 0) {
+        if (0 < timeSnow <= 1) {
+          timeSnow = '~1'
+        }
         timeSnowDiv.push(`
           <div>
             <div class="timeSnow snow_full">${timeSnow}</div>
@@ -323,7 +327,11 @@ export class SubPageNowWeather {
     this.snowChart.innerHTML = `
       <p>1시간동안 <span>${currentSnow}</span> mm</p>
       <div>${timeSnowDiv.join('')}</div>
+      <i class="misticon"></i>
     `
+
+    // 날씨에 따라 옵션이 변하는 로직
+    this.optionInfoHtml(skyState, weatherState, visibility)
 
     // 일출 일몰
     let sunrise = data.daily[0].sunrise * 1000
@@ -345,7 +353,9 @@ export class SubPageNowWeather {
       `
   }
 
-  optionInfoHtml(skyState, weatherState) {
+  optionInfoHtml(skyState, weatherState, visibility) {
+    let backicon = mist.getElementsByClassName('backicon')[0]
+
     function clearTowShowOption(uvi, cloud, dobbleBtn) {
       dobbleBtn.addEventListener('click', () => {
         uvi.style.display = 'flex'
@@ -376,6 +386,21 @@ export class SubPageNowWeather {
       })
     }
 
+    function rainSnowMistOption(main, mist, backicon) {
+      let misticon = main.getElementsByClassName('misticon')[0]
+      misticon.style.display = 'block'
+      backicon.style.display = 'block'
+      misticon.addEventListener('click', () => {
+        main.style.display = 'none'
+        mist.style.display = 'flex'
+      })
+
+      backicon.addEventListener('click', () => {
+        mist.style.display = 'none'
+        main.style.display = 'flex'
+      })
+    }
+
     switch (weatherState) {
       case '01' :
       case '02' :
@@ -398,10 +423,18 @@ export class SubPageNowWeather {
       case '11' :
         this.weatherState = 'rain'
         this.rainChart.style.display = 'flex'
+        if (999 >= visibility) {
+          backicon.style.background = `url('../images/umbrella.svg') no-repeat 50%`
+          rainSnowMistOption(this.rainChart, this.mist, backicon)
+        }
         break
       case '13' :
         this.weatherState = 'snow'
         this.snowChart.style.display = 'flex'
+        if (999 >= visibility) {
+          backicon.style.background = `url('../images/snow.svg') no-repeat 50%`
+          rainSnowMistOption(this.snowChart, this.mist, backicon)
+        }
         break
       case '50' :
         this.weatherState = 'mist'
