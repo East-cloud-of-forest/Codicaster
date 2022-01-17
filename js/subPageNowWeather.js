@@ -339,18 +339,28 @@ export class SubPageNowWeather {
     let sunriseTo = data.daily[1].sunrise * 1000
     let now = new Date().getTime()
     let suntime = 0
+    let sunback = ``
+    let suntext = ``
     if (now < sunrise) {
       suntime = new Date(sunrise)
+      sunback = `url('../images/sunrise.svg')`
+      suntext = `다음 <span>일출</span>`
     } else if (now > sunset) {
       suntime = new Date(sunriseTo)
+      sunback = `url('../images/sunrise.svg')`
+      suntext = `다음 <span>일출</span>`
     } else if (now > sunrise) {
       suntime = new Date(sunset)
+      sunback = `url('../images/sunset.svg')`
+      suntext = `다음 <span>일몰</span>`
     }
+
     this.sunTime.innerHTML = `
-      <div>
-        <p>${('00' + suntime.getHours()).slice(-2)} : ${('00' + suntime.getMinutes()).slice(-2)}</P>
-      </div>
-      `
+      <p>${suntext}</p>
+      <span>${('00' + suntime.getHours()).slice(-2)} : ${('00' + suntime.getMinutes()).slice(-2)}</span>
+    `
+    
+    document.documentElement.style.setProperty('--sunback', `${sunback}`)
   }
 
   optionInfoHtml(skyState, weatherState, visibility) {
