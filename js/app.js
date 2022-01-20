@@ -20,10 +20,11 @@ class App {
     this.lat = ''
 
     this.locationIcon = document.getElementById('top').getElementsByTagName('i')[0]
-    this.cityChoice = document.getElementById('cityChoiceHidden')
+    this.cityChoice = document.getElementById('cityChoiceSection')
+    this.cityChoiceBox = document.getElementById('cityChoiceBox')
     this.locationIcon.addEventListener('click', () => {
       this.cityChoice.style.display = 'block'
-      this.cityChoice.scrollTop = 0
+      this.cityChoiceBox.scrollTop = 0
     })
 
     this.top = document.getElementById('top')
