@@ -1,6 +1,7 @@
 import { SubPageTimeTemp } from './subPageTimeTemp.js'
 import { SubPageNowWeather } from './subPageNowWeather.js'
 import { AnimationAndDesign } from './animationAndDesign.js'
+import { SubPageCloth } from './subPageCloth.js'
 
 // 도시 이름 데이터
 import CityInfo from './cityInfo.js'
@@ -42,6 +43,7 @@ class App {
     this.location.addEventListener('click', this.gps.bind(this))
     this.gps()
 
+    this.SubPageCloth = new SubPageCloth()
     this.SubPageNowWeather = new SubPageNowWeather()
 
     window.addEventListener('resize', this.resize.bind(this))
@@ -77,6 +79,7 @@ class App {
 
     this.temp.innerHTML = `${Math.round(data.main.temp)}˚`
     this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}˚`
+    this.SubPageCloth.mainPageHtml(data)
 
     // 시간별 날씨
     this.maxtemp = data.main.temp_max
