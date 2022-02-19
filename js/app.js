@@ -75,10 +75,13 @@ class App {
     // this.background.style = this.AnimationAndDesign.backgroundcolor(test)
 
 
+    
 
 
     this.temp.innerHTML = `${Math.round(data.main.temp)}˚`
     this.fillsLike.innerHTML = `체감온도 ${Math.round(data.main.feels_like)}˚`
+
+    // 날씨별 옷
     this.SubPageCloth.mainPageHtml(data)
 
     // 시간별 날씨
