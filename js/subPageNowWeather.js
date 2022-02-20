@@ -78,9 +78,10 @@ export class SubPageNowWeather {
         Time = `약 1시간 전`
       } else {
         Time = `한참 전`
+        clearInterval(this.intervalTime)
       }
       this.currentTime.innerHTML = Time
-    }, 60000)
+    }, 100)
 
     this.windHumidity.innerHTML = `
       <div>

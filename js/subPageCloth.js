@@ -6,7 +6,7 @@ export class SubPageCloth {
   mainPageHtml(data) {
     let curtemp = Math.round(data.main.temp)
 
-    // curtemp = 13
+    curtemp = 24
 
     let clothImg = []
     let clothTag = []
@@ -14,24 +14,32 @@ export class SubPageCloth {
 
     if(curtemp >= 28) {
       clothTag = ["민소매", "반팔", "짧은 하의"]
+      clothText = `너무 더워요. 얇게 입어 열사병에 주의하고 실내에 있기로 해요.`
     } else if (23 <= curtemp && curtemp <= 27) {
       clothTag = ["반팔", "얇은 셔츠", "반바지", "면바지"]
+      clothText = `더운 날씨예요. 실내에 오래 있다면 외투를 챙기도록 해요. 에어컨이 추울 수 있어요.`
     } else if (20 <= curtemp && curtemp <= 22) {
       clothTag = ["블라우스", "긴팔 티", "면바지", "슬랙스"]
+      clothText = `따뜻하기도 시원하기도 한 날씨예요. 일교차에 주의해야 겠어요.`
     } else if (17 <= curtemp && curtemp <= 19) {
       clothTag = ["맨투맨", "후드", "슬랙스", "청바지"]
+      clothText = `선선하고 좋은 날씨예요. 밤에는 추울 수도 있으니 외투를 챙기도록 해요.`
     } else if (12 <= curtemp && curtemp <= 16) {
       clothTag = ["자켓", "가디건", "청자켓", "니트", "청바지"]
+      clothText = `조금 쌀쌀할 수 있어요. 멋도 좋지만 따스한 외투를 하나씩 챙겨요.`
     } else if (9 <= curtemp && curtemp <= 11) {
       clothTag = ["코트", "야상", "점퍼", "목티"]
+      clothText = `쌀쌀한 날씨예요. 센치한 멋을 부릴 수 있는 날씨!`
     } else if (5 <= curtemp && curtemp <= 8) {
       clothTag = ["두꺼운 코트", "히트텍", "기모", "플리스"]
+      clothText = `조금 추운 날씨예요. 내의를 챙겨 입고 따뜻하게 다녀요.`
     } else if (4 >= curtemp) {
       clothTag = ["패딩", "두꺼운 코트", "기모", "목도리"]
+      clothText = `날씨가 아주 추워요. 꽁꽁 싸매고 둘러야 해요. 두툼하게 입도록 해요.`
     }
 
     for (let i in clothTag) {
-      clothTag[i] = `<span value="${i}">#${clothTag[i]}</span>`
+      clothTag[i] = `<span value="${i}"># ${clothTag[i]}</span>`
       
       clothImg[i] = `<div class="clothImges" value="${i}">${clothTag[i]}</div>`
     }
@@ -39,8 +47,7 @@ export class SubPageCloth {
     this.clothes.innerHTML = `
       <div class="clothTag">${clothTag.join('')}</div>
       <div class="clothImg">${clothImg.join('')}</div>
-      <div class="clothText"></div>
-      <input type="button" id="test_button" value="dd">
+      <div class="clothText"><p>${clothText}</p></div>
     `
 
     let clothDiv = document.getElementsByClassName('clothImg')[0]
@@ -63,7 +70,7 @@ export class SubPageCloth {
       clothImgesLeft(i)
     }
 
-    // 애니메이션
+    // 이미지 애니메이션
     let clothinterval, clothtimeout
     
     function clothAnimation() {
@@ -72,7 +79,7 @@ export class SubPageCloth {
           clothinterval = setInterval(() => {
             movecloth(5)
           }, 7000)
-        }, 2000)
+        }, 3000)
     }
 
     clothAnimation()
@@ -120,6 +127,45 @@ export class SubPageCloth {
       })
     }
 
+    // 텍스트 애니메이션
+    
+    let clothesText = document.getElementsByClassName('clothText')[0].getElementsByTagName('p')[0]
+    let offWidth = clothesText.offsetWidth
+    let scrWidth = clothesText.scrollWidth
+    let textTimeset
 
+    if (offWidth - scrWidth != 0) {
+      textTimeset = setTimeout(() => {
+        clothesText.style.textIndent = `${(offWidth - scrWidth)* 2}px`
+      }, 3000)
+    }
+
+    function textFadeout(text) {
+      text.style.transition = `top 0.7s`
+      text.style.top = `-130%`
+      setTimeout(() => {
+        text.style.transition = ``
+        text.style.opacity = `0`
+        text.style.top = `100%`
+        clothesText.style.textIndent = ``
+      },700)
+    }
+
+    function textFadein(text) {
+      setTimeout(() => {
+        text.style.transition = `top 0.7s`
+        text.style.top = `0`
+        text.style.opacity = `1`
+        textTimeset = setTimeout(() => {
+          text.style.transition = ``
+          clothesText.style.textIndent = `${(offWidth - scrWidth)* 2}px`
+        }, 3000)
+      },3000)
+    }
+
+    clothesText.addEventListener('click', () => {
+      textFadeout(clothesText)
+      textFadein(clothesText)
+    })
   }
 }
