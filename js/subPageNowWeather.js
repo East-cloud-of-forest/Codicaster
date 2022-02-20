@@ -81,7 +81,7 @@ export class SubPageNowWeather {
         clearInterval(this.intervalTime)
       }
       this.currentTime.innerHTML = Time
-    }, 100)
+    }, 60000)
 
     this.windHumidity.innerHTML = `
       <div>
