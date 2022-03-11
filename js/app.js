@@ -46,8 +46,17 @@ class App {
     this.SubPageCloth = new SubPageCloth()
     this.SubPageNowWeather = new SubPageNowWeather()
 
-    window.addEventListener('resize', this.resize.bind(this))
-    this.resize()
+    // vh 변수화
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+    let timer
+    window.addEventListener('resize', function(){
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        location.reload()
+      }, 200);
+    });
   }
 
   // Weather API
@@ -240,13 +249,6 @@ class App {
 
   padeOut() {
     this.AnimationAndDesign.UpDownPadeOut(this.mainPage)
-  }
-
-  // vh 변수화
-  resize() {
-    let vh = window.innerHeight * 0.01
-
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
   }
 
   // 새로고침
