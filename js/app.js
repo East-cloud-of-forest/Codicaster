@@ -29,9 +29,16 @@ class App {
     })
 
     this.top = document.getElementById('top')
+    this.topi = document.getElementById('top').querySelector('i')
     this.weatherInfo = document.getElementById('weatherInfo')
     this.clothes = document.getElementById('clothes')
     this.tempinfo = document.getElementById('tempinfo')
+
+    this.errorImg = new Image()
+    this.errorImg.src = "./images/error_w.png"
+    this.errorImg.setAttribute("width", "85%")
+    this.errorImg.setAttribute("style", "display : none")
+    this.top.prepend(this.errorImg)
 
     this.location = document.getElementById('location').getElementsByTagName('p')[0]
     this.city = ''
@@ -212,7 +219,8 @@ class App {
 
   showErrorMsg() {
     this.location.innerText =
-      '위치 정보를 가져올 수 없습니다. 지역을 선택해주세요.'
+      `위치 정보를 가져올 수 없습니다.
+      위치 아이콘을 눌러 지역을 선택해주세요.`
     this.errorPage()
 
     // gps 안될때 테스트
@@ -225,20 +233,28 @@ class App {
 
   // GPS 에러시 메인 페이지 구성
   errorPage() {
+    this.errorImg.setAttribute("style", "display : block")
     this.weatherInfo.style.display = 'none'
     this.clothes.style.display = 'none'
     this.tempinfo.style.display = 'none'
     this.top.style.backgroundColor = 'rgba(0,0,0,0.5)'
     this.top.style.height = '100%'
+    this.top.style.flexDirection = 'column'
+    this.top.style.justifyContent = 'space-evenly'
+    this.topi.style.width = '5vh'
+    this.topi.classList.add("topiAnimation")
     this.mainPage.style.padding = '0'
     this.mainPage.style.transition = '0s'
   }
 
   resetErrorPage() {
+    this.errorImg.setAttribute("style", "display : none")
+    this.topi.classList.remove("topiAnimation")
     this.weatherInfo.style = ''
     this.clothes.style = ''
     this.tempinfo.style = ''
     this.top.style = ''
+    this.topi.style = ''
     this.mainPage.style = ''
   }
 
