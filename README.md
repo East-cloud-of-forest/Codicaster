@@ -6,10 +6,10 @@ https://kind-kowalevski-080687.netlify.app/
 의상이나 화장, 액세서리, 잡화류를 전체적으로 조화롭게 갖추는 뜻의 코디와 일기 예보를 전해주는 기상 캐스터의 합성어인 코디캐스터로 프로젝트의 이름을 정했습니다.
 
 ## :computer: Stack
-Html  
-Css  
-JavaScript  
-Netlify
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">  
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">  
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">  
+<img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=Netlify&logoColor=white">  
 
 ## :satellite: Api
 OpenWeather - Current Weather Data  
