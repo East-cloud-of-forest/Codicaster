@@ -168,6 +168,7 @@ class App {
       .then((data) => {
         setTimeout(() => {
           this.location.innerText = `${city.innerText}`
+          this.SubPageCloth.distroid()
           this.nowWeather(data)
         },400)
       })
@@ -208,6 +209,7 @@ class App {
         }
         setTimeout(() => {
           this.location.innerText = `${cityName}`
+          this.SubPageCloth.distroid()
           this.nowWeather(data)
         },400)
       } else {
