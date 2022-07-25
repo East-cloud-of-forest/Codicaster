@@ -102,10 +102,10 @@ export class SubPageNowWeather {
     `;
 
     // 옵션 정보 창
-    let skyState = data.current.weather[0].icon.slice(2);
-    let weatherState = data.current.weather[0].icon.slice(0, 2);
-    // let skyState = 'n'
-    // let weatherState = '13'
+    // let skyState = data.current.weather[0].icon.slice(2);
+    // let weatherState = data.current.weather[0].icon.slice(0, 2);
+    let skyState = "n";
+    let weatherState = "13";
     let visibility = data.current.visibility;
 
     // 구름양
@@ -402,7 +402,7 @@ export class SubPageNowWeather {
 
   // 날씨에 따라 옵션이 변하는 로직 세부내용
   optionInfoHtml(skyState, weatherState, visibility) {
-    let backicon = mist.getElementsByClassName("backicon")[0];
+    this.backicon = mist.getElementsByClassName("backicon")[0];
     // 맑은 날
     const clearTowShowOption = (uvi, cloud) => {
       this.dobbleBtnFunc = () => {
@@ -447,19 +447,22 @@ export class SubPageNowWeather {
     };
 
     // 눈 비
-    function rainSnowMistOption(main, mist, backicon) {
-      let misticon = main.getElementsByClassName("misticon")[0];
-      misticon.style.display = "block";
-      backicon.style.display = "block";
-      misticon.addEventListener("click", () => {
+    const rainSnowMistOption = (main, mist) => {
+      this.misticon = main.getElementsByClassName("misticon")[0];
+      this.misticon.style.display = "block";
+      this.backicon.style.display = "block";
+      this.misticonFunc = () => {
         main.style.display = "none";
         mist.style.display = "flex";
-      });
-      backicon.addEventListener("click", () => {
+      };
+      this.backiconFunc = () => {
         mist.style.display = "none";
         main.style.display = "flex";
-      });
-    }
+      };
+
+      this.misticon.addEventListener("click", this.misticonFunc);
+      this.backicon.addEventListener("click", this.backiconFunc);
+    };
 
     switch (weatherState) {
       case "01":
@@ -484,16 +487,16 @@ export class SubPageNowWeather {
         this.weatherState = "rain";
         this.rainChart.style.display = "flex";
         if (999 >= visibility) {
-          backicon.style.background = `url('../images/umbrella.svg') no-repeat 50%`;
-          rainSnowMistOption(this.rainChart, this.mist, backicon);
+          this.backicon.style.background = `url('../images/umbrella.svg') no-repeat 50%`;
+          rainSnowMistOption(this.rainChart, this.mist, this.backicon);
         }
         break;
       case "13":
         this.weatherState = "snow";
         this.snowChart.style.display = "flex";
-        if (999 >= visibility) {
-          backicon.style.background = `url('../images/snow.svg') no-repeat 50%`;
-          rainSnowMistOption(this.snowChart, this.mist, backicon);
+        if (true) {
+          this.backicon.style.background = `url('../images/snow.svg') no-repeat 50%`;
+          rainSnowMistOption(this.snowChart, this.mist, this.backicon);
         }
         break;
       case "50":
@@ -526,9 +529,15 @@ export class SubPageNowWeather {
 
   distroid() {
     this.dobbleBtn.removeEventListener("click", this.dobbleBtnFunc);
-    if (this.mainOption !== '') {
+    if (this.mainOption !== "") {
       this.mainOption.removeEventListener("click", this.mainFunc);
     }
     this.clouds.removeEventListener("click", this.cloudFunc);
+    if (this.misticon !== undefined) {
+      this.misticon.removeEventListener("click", this.misticonFunc);
+    }
+    if (this.backicon !== undefined) {
+      this.backicon.removeEventListener("click", this.backiconFunc);
+    }
   }
 }
