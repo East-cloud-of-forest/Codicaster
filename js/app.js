@@ -169,6 +169,8 @@ class App {
         setTimeout(() => {
           this.location.innerText = `${city.innerText}`
           this.SubPageCloth.distroid()
+          this.SubPageNowWeather.distroid()
+          this.SubPageTimeTemp.distroid()
           this.nowWeather(data)
         },400)
       })
@@ -209,8 +211,12 @@ class App {
         }
         setTimeout(() => {
           this.location.innerText = `${cityName}`
-          this.SubPageCloth.distroid()
           this.nowWeather(data)
+          this.SubPageCloth.distroid()
+          this.SubPageNowWeather.distroid()
+          if (this.SubPageTimeTemp !== undefined) {
+            this.SubPageTimeTemp.distroid()
+          }
         },400)
       } else {
         this.showErrorMsg()

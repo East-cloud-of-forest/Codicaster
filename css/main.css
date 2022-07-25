@@ -940,14 +940,13 @@ body {
         font-size: 3vh;
       }
 
-        #uvi div span span, #tomorrowUvi div span span {
+        #uvi div span:nth-child(3), #tomorrowUvi div span:nth-child(3) {
           font-size: 1.4vh;
-          position: absolute;
           right: -0.5vh;
           padding: 0.5vh;
-          transform: translateX(100%);
           border-radius: 0.5vh;
           color: rgba(255,255,255, 0.7);
+          margin-left: 1rem;
         }
       
       #tomorrowUvi div> span {
