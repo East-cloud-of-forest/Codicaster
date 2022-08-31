@@ -170,7 +170,7 @@ class App {
           this.location.innerText = `${city.innerText}`
           this.SubPageCloth.distroid()
           this.SubPageNowWeather.distroid()
-          this.SubPageTimeTemp.distroid()
+          this.SubPageTimeTemp && this.SubPageTimeTemp.distroid()
           this.nowWeather(data)
         },400)
       })
