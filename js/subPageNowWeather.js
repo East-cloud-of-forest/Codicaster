@@ -102,10 +102,10 @@ export class SubPageNowWeather {
     `;
 
     // 옵션 정보 창
-    // let skyState = data.current.weather[0].icon.slice(2);
-    // let weatherState = data.current.weather[0].icon.slice(0, 2);
-    let skyState = "n";
-    let weatherState = "13";
+    let skyState = data.current.weather[0].icon.slice(2);
+    let weatherState = data.current.weather[0].icon.slice(0, 2);
+    // let skyState = "n";
+    // let weatherState = "13";
     let visibility = data.current.visibility;
 
     // 구름양
